@@ -40,6 +40,17 @@ public class Iaas {
     //XEJ4UyPtmY5N
     private String password="pppppppp";
     
+    public Iaas() throws JSONException, LoginException{
+        
+        pve = new Pve2Api(password, user, address, password);
+        
+        try {
+            pve.login();
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     
     /**
