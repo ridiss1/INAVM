@@ -41,6 +41,8 @@ public class INAVM_CLOUD {
         
         Iaas iaas = new Iaas();
         
+		String stat = null;	//For the stats
+		
         //Create container
         String vmid = "106";
         result = iaas.creerContainer(vmid);
@@ -50,6 +52,7 @@ public class INAVM_CLOUD {
         }
         
         iaas.startContainer(Integer.parseInt(vmid));
+		stat = iaas.getStatistics("ns3021937", Integer.parseInt(vmid), "December");
         //iaas.stopContainer(Integer.parseInt(vmid));
 
 //        String user = "root";
