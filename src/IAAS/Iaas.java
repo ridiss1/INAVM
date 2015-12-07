@@ -94,11 +94,19 @@ public class Iaas {
      * @param vmid=id du container 
      * @return 
      */
-    public String startContainer (int vmid){
+    public void startContainer (int vmid){
         
         String result=null;
+        try {
+            pve.startOpenvz("ns2021937", vmid);
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return result;
     }
     
     /**
@@ -106,11 +114,19 @@ public class Iaas {
      * @param vmid = id du container 
      * @return 
      */
-    public String stopContainer (int vmid){
+    public void stopContainer (int vmid){
        
-       String result=null;
+        try {
+            pve.stopOpenvz(user, vmid);
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
-       return result;
+       
     }
     
     
