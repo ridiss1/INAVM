@@ -37,4 +37,9 @@ public class VncData {
 	public String getUser() {
 		return user;
 	}
+        
+        @Override
+        public String toString(){
+            return "cert="+cert+"\n"+"port="+port+"\n"+"ticket"+ticket+"\n"+"upid"+upid+"\n"+"user="+user;
+        }
 }
