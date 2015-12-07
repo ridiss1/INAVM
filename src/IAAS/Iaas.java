@@ -116,6 +116,7 @@ public class Iaas {
     
     
     /**
+     * This method should allow usto get statistics about VM usage
      * 
      * @param node = 
      * @param vmid = id du container 
