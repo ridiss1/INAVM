@@ -37,11 +37,17 @@ public class INAVM_CLOUD {
      */
     public static void main(String[] args) throws IOException, JSONException, LoginException {
         // TODO code application logic here
+        boolean result;
         
         Iaas iaas = new Iaas();
         
         //Create container
-        iaas.creerContainer();
+        String vmid = "106";
+        result = iaas.creerContainer(vmid);
+        if(result)
+        {
+            System.out.println("Container created !!");
+        }
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";
 //        int port = 22;

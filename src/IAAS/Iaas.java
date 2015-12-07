@@ -61,20 +61,19 @@ public class Iaas {
      * @param nbrectainer : utilisé pour numéroter la machine de façcon unique
      * via son IP 
      */
-    public boolean creerContainer ( ) {
+    public boolean creerContainer ( String vmid ) {
         
         boolean result = false; 
         String node = "ns3021937";
         String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
-        String CT_ID="104";
         String CPU_COUNT="2";
         String DISK_SIZE="40";
-        String HOSTNAME="ContainerTeacher";
+        String HOSTNAME="ContainerTeacher"+vmid;
         String MEMORY_SIZE="2048";
         String IP_ADDRESS="192.168.1.1";
         String PASSWORD_CONTAINER = "aaa2015";
         
-        Container containerT = new Container(TEMPLATE_PATH, CT_ID, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
+        Container containerT = new Container(TEMPLATE_PATH, vmid, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
         containerT.setIp_address(IP_ADDRESS);
         
         try {
