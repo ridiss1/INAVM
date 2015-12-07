@@ -117,16 +117,27 @@ public class Iaas {
     
     /**
      * 
+     * @param node = 
      * @param vmid = id du container 
      * @param param = heure,jr
      * @return un tableau de json contenant les caractéristiques par 
      * heure de la machine depuis son allumage ( cas "hour") : RRD data
      */
-    public String getStatistics(int vmid,String param){
-         
-       String result=null;
-       
-       return result;
+    public String getStatistics(String node,int vmid,String param) throws JSONException{
+         String result=null;
+        try {
+            
+            
+            result = pve.getStatistics(node, vmid, param);
+            
+            
+            
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
      }
     
  
