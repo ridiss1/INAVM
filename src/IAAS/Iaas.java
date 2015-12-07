@@ -22,7 +22,23 @@ import org.json.JSONObject;
  */
 public class Iaas {
     
+    private Pve2Api pve;
+    /**
+     * SSH Attributes
+     */
+   
+   
+    private int port = 22;
     
+    /**
+    * Attrites for ssh connection
+    */
+    
+     //Server dist distant
+    final  private String address="149.202.70.57"; 
+    private String user="root";
+    //XEJ4UyPtmY5N
+    private String password="pppppppp";
     
     
     

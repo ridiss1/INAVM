@@ -30,13 +30,15 @@ public class INAVM_CLOUD {
 
     /**
      * @param args the command line arguments
+     * XEJ4UyPtmY5N
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         String user = "root";
         String ipRtr = "149.202.70.57";
         int port = 22;
-        String password = "XEJ4UyPtmY5N";
+        
+        String password = "xxyyUUIIOOBB12";
         
         String CT_ID="103";
         String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
