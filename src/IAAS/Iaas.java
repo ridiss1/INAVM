@@ -38,11 +38,13 @@ public class Iaas {
     final  private String address="149.202.70.57"; 
     private String user="root";
     //XEJ4UyPtmY5N
-    private String password="pppppppp";
+    private String password="XEJ4UyPtmY5N";
+    private String hostname="root";
+    private String pve_realm = "pam";
     
     public Iaas() throws JSONException, LoginException{
         
-        pve = new Pve2Api(password, user, address, password);
+        pve = new Pve2Api(address, user, pve_realm, password);
         
         try {
             pve.login();
@@ -60,9 +62,36 @@ public class Iaas {
      * via son IP 
      */
     public boolean creerContainer ( ) {
-        return false;
-       
         
+        boolean result = false; 
+        String node = "ns3021937";
+        String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
+        String CT_ID="104";
+        String CPU_COUNT="2";
+        String DISK_SIZE="40";
+        String HOSTNAME="ContainerTeacher";
+        String MEMORY_SIZE="2048";
+        String IP_ADDRESS="192.168.1.1";
+        String PASSWORD_CONTAINER = "aaa2015";
+        
+        Container containerT = new Container(TEMPLATE_PATH, CT_ID, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
+        containerT.setIp_address(IP_ADDRESS);
+        
+        try {
+            pve.createOpenvz(node, containerT);
+            result = true;
+        } catch (JSONException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
+        }
+    
+        return result;
     }
     
     
