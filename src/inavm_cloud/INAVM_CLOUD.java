@@ -41,7 +41,9 @@ public class INAVM_CLOUD {
         Iaas iaas = new Iaas();
         
         //Create container
-        iaas.creerContainer();
+        //iaas.creerContainer();
+        //iaas.startContainer(104);
+        iaas.stopContainer(104);
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";
 //        int port = 22;

@@ -127,7 +127,8 @@ public class Iaas {
         
         String result=null;
         try {
-            pve.startOpenvz("ns2021937", vmid);
+            pve.startOpenvz("ns3021937", vmid);
+           
         } catch (LoginException ex) {
             Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
@@ -146,7 +147,7 @@ public class Iaas {
     public void stopContainer (int vmid){
        
         try {
-            pve.stopOpenvz(user, vmid);
+            pve.stopOpenvz("ns3021937", vmid);
         } catch (LoginException ex) {
             Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
