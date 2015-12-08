@@ -44,7 +44,7 @@ public class INAVM_CLOUD {
 	String stat = null;	//For the stats
 		
         //Create container
-        String vmid = "106";
+        String vmid = "104";
 //        result = iaas.creerContainer(vmid);
 //        if(result)
 //        {
@@ -58,11 +58,11 @@ public class INAVM_CLOUD {
         //iaas.stopContainer(Integer.parseInt(vmid));
         
         /**************Get Stats*****************/
-	//stat = iaas.getStatistics("ns3021937", Integer.parseInt(vmid), "December");
+	stat = iaas.getStatistics("ns3021937", Integer.parseInt(vmid), "hour");
         
         /*************Delete container***********/
-        String deleteInfo = iaas.deleteContainer("ns3021937", Integer.parseInt(vmid));
-        System.out.println("[Info Delete] "+deleteInfo);
+//        String deleteInfo = iaas.deleteContainer("ns3021937", Integer.parseInt(vmid));
+//        System.out.println("[Info Delete] "+deleteInfo);
 
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";
