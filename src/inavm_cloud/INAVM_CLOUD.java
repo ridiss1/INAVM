@@ -41,19 +41,28 @@ public class INAVM_CLOUD {
         
         Iaas iaas = new Iaas();
         
-		String stat = null;	//For the stats
+	String stat = null;	//For the stats
 		
         //Create container
         String vmid = "106";
-        result = iaas.creerContainer(vmid);
-        if(result)
-        {
-            System.out.println("Container created !!");
-        }
+//        result = iaas.creerContainer(vmid);
+//        if(result)
+//        {
+//            System.out.println("Container created !!");
+//        }
         
-        iaas.startContainer(Integer.parseInt(vmid));
-		stat = iaas.getStatistics("ns3021937", Integer.parseInt(vmid), "December");
+        /***************Start container************/
+        //iaas.startContainer(Integer.parseInt(vmid));
+        
+        /***************Stop container************/
         //iaas.stopContainer(Integer.parseInt(vmid));
+        
+        /**************Get Stats*****************/
+	//stat = iaas.getStatistics("ns3021937", Integer.parseInt(vmid), "December");
+        
+        /*************Delete container***********/
+        String deleteInfo = iaas.deleteContainer("ns3021937", Integer.parseInt(vmid));
+        System.out.println("[Info Delete] "+deleteInfo);
 
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";

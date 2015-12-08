@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/INAVM_CLOUD/src/inavm_cloud/INAVM_CLOUD.java</file>
+            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/src/inavm_cloud/INAVM_CLOUD.java</file>
+            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/src/net/elbandi/pve2api/data/Container.java</file>
+            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/src/net/elbandi/pve2api/Pve2Api.java</file>
+            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/src/net/elbandi/pve2api/data/ClusterLog.java</file>
+            <file>file:/D:/Cours_3MIC_4IR_5A/INSA/5A/Cloud/Projet/INAVM/src/IAAS/Iaas.java</file>
         </group>
     </open-files>
 </project-private>

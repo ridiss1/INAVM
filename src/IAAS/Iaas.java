@@ -100,9 +100,19 @@ public class Iaas {
      * @param vmid = id du container 
      * @return 
      */
-    public String deleteContainer (int vmid){
+    public String deleteContainer (String node, int vmid){
         
-        String result=null;
+        String result="Error not deleted !!";
+        
+        try {
+            result = pve.deleteOpenvz(node, vmid);
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return result;
     }
