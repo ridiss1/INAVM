@@ -201,7 +201,7 @@ public class Iaas {
 //             To parse the previous results in an array
 //             */
             JSONObject jObj = new JSONObject(result3);
-            System.out.println("Objet Json : " +jObj);
+//            System.out.println("Objet Json : " +jObj);
             JSONArray jArr = jObj.getJSONArray("result2");
 //            for (int i = 0; i < jArr.length(); i++) {
 ////                System.out.println("JSONArray : " +jArr.getInt(i));
