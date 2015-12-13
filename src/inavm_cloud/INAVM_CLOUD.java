@@ -23,6 +23,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import static java.lang.System.in;
 import java.net.InetAddress;
+import java.util.Hashtable;
 import javax.security.auth.login.LoginException;
 import org.json.JSONException;
 
@@ -41,20 +42,29 @@ public class INAVM_CLOUD {
         boolean result;
         String node = "ns3021937";
         int nbrMachine = 2;
+        int lastAdress;
+        Hashtable<Integer, String> adresses = new Hashtable<Integer, String>();
         
-        InetAddress ip_bridge = InetAddress.getByName("192.168.1.0");
-        //String ip_Container = ip_bridge+nbrMachine;
+        //Initialisation de la table des adresses IP
+        for(int i=0;i<254;i++)
+        {
+            adresses.put(i, "192.168.1."+(i+1));
+        }
+        lastAdress = -1;
+        
         Iaas iaas = new Iaas();
         
 	String stat = null;	//For the stats
 		
+        
         //Create container
-        String vmid = "104";
-//        result = iaas.creerContainer(vmid);
-//        if(result)
-//        {
-//            System.out.println("Container created !!");
-//        }
+        String vmid = "106";
+        result = iaas.creerContainer(vmid,adresses.get(lastAdress+1));
+        if(result)
+        {
+            System.out.println("Container created !!");
+            lastAdress++;
+        }
         
         /***************Start container************/
         //iaas.startContainer(Integer.parseInt(vmid));
@@ -70,8 +80,8 @@ public class INAVM_CLOUD {
 //        System.out.println("[Info Delete] "+deleteInfo);
         
         /************Networks in the node**********/
-        String resultNetwork = iaas.NetworksList(node);
-        System.out.println(resultNetwork);
+        //String resultNetwork = iaas.NetworksList(node);
+        //System.out.println(resultNetwork);
 
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";
@@ -121,6 +131,5 @@ public class INAVM_CLOUD {
 //            Logger.getLogger(INAVM_CLOUD.class.getName()).log(Level.SEVERE, null, ex);
 //        }   
 //        
-    }
-    
+    }    
 }
