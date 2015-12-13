@@ -22,6 +22,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import static java.lang.System.in;
+import java.net.InetAddress;
 import javax.security.auth.login.LoginException;
 import org.json.JSONException;
 
@@ -38,7 +39,11 @@ public class INAVM_CLOUD {
     public static void main(String[] args) throws IOException, JSONException, LoginException {
         // TODO code application logic here
         boolean result;
+        String node = "ns3021937";
+        int nbrMachine = 2;
         
+        InetAddress ip_bridge = InetAddress.getByName("192.168.1.0");
+        //String ip_Container = ip_bridge+nbrMachine;
         Iaas iaas = new Iaas();
         
 	String stat = null;	//For the stats
@@ -63,6 +68,10 @@ public class INAVM_CLOUD {
         /*************Delete container***********/
 //        String deleteInfo = iaas.deleteContainer("ns3021937", Integer.parseInt(vmid));
 //        System.out.println("[Info Delete] "+deleteInfo);
+        
+        /************Networks in the node**********/
+        String resultNetwork = iaas.NetworksList(node);
+        System.out.println(resultNetwork);
 
 //        String user = "root";
 //        String ipRtr = "149.202.70.57";
