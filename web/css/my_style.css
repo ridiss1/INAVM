@@ -1,0 +1,24 @@
+#accueil
+	{
+	}
+	
+		#accueil h1
+		{
+			font-weight: 900;
+			text-transform: uppercase;
+			color: #fff;
+		}
+		
+		#accueil p
+		{
+			color: #eee;
+			color: rgba(255,255,255,0.5);
+			text-transform: uppercase;
+		}
+                
+                
+                
+  .well {
+    min-height: 0px;
+}  
+

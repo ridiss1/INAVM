@@ -1,90 +1,53 @@
-<%-- 
-    Document   : index
-    Created on : 8 déc. 2015, 14:59:35
-    Author     : Ridiss
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styles_login.css" rel="stylesheet" type="text/css"/>
+<!--        <link href="css/my_style.css" rel="stylesheet" type="text/css"/>-->
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery-min.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <title>Page de connexion </title>
     </head>
-    <body>
-        <header> <h1>Creation d'un container</h1></header>
-                   
-                    <form method="post" action="vmProf" class="form-horizontal" role="form" >
-                        <div class="form-group">
-                           
-                            <label for="ram" class="col-sm-2 control-label">Ram</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="ram" id="ram">
-                                    <option >256</option>
-                                    <option >512</option>
-                                    <option >1000</option>
-                                </select>
-                            </div>  
-
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="cpus" class="col-sm-2 control-label">Cpu</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="cpus" id="cpus">
-                                    <option >1</option>
-                                    <option >2</option>
-                                    <option >3</option>
-                                </select>
-                            </div>  
-
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="disk" class="col-sm-2 control-label">Disk</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="disk" id="disk">
-                                    <option >5</option>
-                                    <option >10</option>
-                                    <option >15</option>
-                                </select>
-                            </div>  
-
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="template" class="col-sm-2 control-label">Template</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="template" id="template">
-                                   
-                                    <option >debian-7.0-standard_7.0-2_i386.tar.gz </option> 
-                                </select>
-                            </div>  
-
-                        </div>
-                                  
-                        <div class="form-group">
-                            <label for="hostname" class="col-sm-2 control-label">Hostname</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="hostname" name="hostname"
-                                       placeholder="Entrez le nom de la machine">
+    <body >
+        <!--login modal-->
+        <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="text-center">Login</h1>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form col-md-12 center-block" action="accueil" method="post">
+                            <div class="form-group">
+                                
+                                <input type="text" name="login" class="form-control input-lg" placeholder="Login">
+                                <span class="erreur">${Message['login']}</span>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="passwordDefault" class="col-sm-2 control-label">Password</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="passwordDefault" name="passwordDefault"
-                                       placeholder="Entrez le mot de passe">
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control input-lg" placeholder="Password">
+                                <span class="erreur">${Message['password']}</span>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default" name="actionAdd" value="CreerContainer">Valider</button>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+                                <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
                             </div>
-                        </div>
-
-                    </form>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        </div>	
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
