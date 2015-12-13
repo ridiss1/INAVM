@@ -14,7 +14,7 @@ public class Network {
 	String type;
 
 	public Network(JSONObject data) throws JSONException {
-		autostart = data.getInt("autostart") == 1;
+		//autostart = data.getInt("autostart") == 1;
 		bridge_ports = data.optString("bridge_ports");
 		iface = data.getString("iface");
 		address = data.optString("address");

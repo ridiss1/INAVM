@@ -7,11 +7,13 @@ package IAAS;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
 import net.elbandi.pve2api.Pve2Api;
 import net.elbandi.pve2api.data.Container;
+import net.elbandi.pve2api.data.Network;
 import net.elbandi.pve2api.data.VncData;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +63,7 @@ public class Iaas {
      * @param nbrectainer : utilisé pour numéroter la machine de façcon unique
      * via son IP 
      */
-    public boolean creerContainer ( String vmid ) {
+    public boolean creerContainer ( String vmid, String IP_ADDRESS ) {
         
         boolean result = false; 
         String node = "ns3021937";
@@ -70,7 +72,6 @@ public class Iaas {
         String DISK_SIZE="40";
         String HOSTNAME="ContainerTeacher"+vmid;
         String MEMORY_SIZE="2048";
-        String IP_ADDRESS="192.168.1.1";
         String PASSWORD_CONTAINER = "aaa2015";
         
         Container containerT = new Container(TEMPLATE_PATH, vmid, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
@@ -223,4 +224,29 @@ public class Iaas {
         return true;
     }
     
+    /**
+     * 
+     * @param node = node of the server 
+     * @return 
+     */
+    public String NetworksList (String node){
+        
+        String result="No networks";
+        try {
+            List<Network> networks = pve.getNodeNetwork(node);
+            //Iterate on networks
+            result = "[Info Réseaux] ";
+            for (Network network : networks) {
+                result +="\n - " +network.getAddress();
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LoginException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
 }
