@@ -108,10 +108,25 @@ public class FormCreatContenaire extends HttpServlet {
        {
            data.UpdateIpadress(adress, true);
            data.AddContainer(vmid, adress);
+           
+           response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet FormCreatContenaire</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Servlet FormCreatContenaire at " + request.getContextPath() + "</h1>");
+                out.println("<h1>Container Created !!!</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
        }
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+       else{
+          response.setContentType("text/html;charset=UTF-8");
+          try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -120,9 +135,10 @@ public class FormCreatContenaire extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet FormCreatContenaire at " + request.getContextPath() + "</h1>");
-            out.println("<h1>Servlet FormCreatContenaire at " + resul.toString() + "</h1>");
+            out.println("<h1>ERROR Container not created !!!</h1>");
             out.println("</body>");
             out.println("</html>");
+          }      
         }
 
     }
