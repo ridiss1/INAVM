@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import IAAS.Iaas;
+import Model.Database;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
@@ -26,6 +27,7 @@ public class FormCreatContenaire extends HttpServlet {
     
     Iaas iaas;
     Boolean resul;
+    private Database data = new Database();
 
     public FormCreatContenaire() throws JSONException {
         try {
@@ -90,9 +92,20 @@ public class FormCreatContenaire extends HttpServlet {
         
        
        System.out.println("pass1");
-       resul= iaas.creerContainer("104");
+       String adress = data.GetAvailableIpAdress();
+       int vmid = data.GetLastContainerId();
+       String CPU_COUNT = request.getParameter("cpus");
+       String TEMPLATE = request.getParameter("template");
+       String DISK_SIZE = request.getParameter("disk");
+       String MEMORY_SIZE = request.getParameter("ram");
+       String HOSTNAME = request.getParameter("hostname");
+       String PASSWORD_CONTAINER = request.getParameter("passwordDefault");
+       
+       System.out.println("*************************VMID : "+vmid);
+       
+       resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,HOSTNAME,PASSWORD_CONTAINER);
         
-           response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

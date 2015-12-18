@@ -38,7 +38,7 @@ public class Iaas {
     final  private String address="149.202.70.57"; 
     private String user="root";
     //XEJ4UyPtmY5N
-    private String password="XEJ4UyPtmY5N";
+    private String password = "XEJ4UyPtmY5N";
     private String hostname="root";
     private String pve_realm = "pam";
     
@@ -61,20 +61,17 @@ public class Iaas {
      * @param nbrectainer : utilisé pour numéroter la machine de façcon unique
      * via son IP 
      */
-    public boolean creerContainer ( String vmid ) {
+    public boolean creerContainer ( String vmid, String IP_ADDRESS,String CPU_COUNT, String TEMPLATE,String DISK_SIZE,String MEMORY_SIZE,String HOSTNAME,String PASSWORD_CONTAINER ) {
         
         boolean result = false; 
         String node = "ns3021937";
-        String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
-        String CPU_COUNT="2";
-        String DISK_SIZE="40";
-        String HOSTNAME="ContainerTeacher"+vmid;
-        String MEMORY_SIZE="2048";
-        String IP_ADDRESS="192.168.1.1";
-        String PASSWORD_CONTAINER = "aaa2015";
+        //String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
+        String TEMPLATE_PATH="/var/lib/vz/template/cache/"+TEMPLATE;
         
         Container containerT = new Container(TEMPLATE_PATH, vmid, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
         containerT.setIp_address(IP_ADDRESS);
+        
+        System.out.println("\n AdresseIP: "+IP_ADDRESS+"\n"+"Template: "+TEMPLATE_PATH+"\n"+"Vmid: "+vmid+"\n"+"Cpu: "+CPU_COUNT+"\n"+"Disk: "+DISK_SIZE+"\n"+"Hostname: "+HOSTNAME+"\n"+"Memoire: "+MEMORY_SIZE+"\n"+"password: "+PASSWORD_CONTAINER);
         
         try {
             pve.createOpenvz(node, containerT);
