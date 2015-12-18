@@ -104,6 +104,11 @@ public class FormCreatContenaire extends HttpServlet {
        System.out.println("*************************VMID : "+vmid);
        
        resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,HOSTNAME,PASSWORD_CONTAINER);
+       if(resul)
+       {
+           data.UpdateIpadress(adress, true);
+           data.AddContainer(vmid, adress);
+       }
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {

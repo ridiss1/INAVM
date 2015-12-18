@@ -67,11 +67,12 @@ public class Iaas {
         String node = "ns3021937";
         //String TEMPLATE_PATH="/var/lib/vz/template/cache/debian-7.0-standard_7.0-2_i386.tar.gz";
         String TEMPLATE_PATH="/var/lib/vz/template/cache/"+TEMPLATE;
+        String finalHostname = HOSTNAME+""+vmid;
         
         Container containerT = new Container(TEMPLATE_PATH, vmid, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
         containerT.setIp_address(IP_ADDRESS);
         
-        System.out.println("\n AdresseIP: "+IP_ADDRESS+"\n"+"Template: "+TEMPLATE_PATH+"\n"+"Vmid: "+vmid+"\n"+"Cpu: "+CPU_COUNT+"\n"+"Disk: "+DISK_SIZE+"\n"+"Hostname: "+HOSTNAME+"\n"+"Memoire: "+MEMORY_SIZE+"\n"+"password: "+PASSWORD_CONTAINER);
+        System.out.println("\n AdresseIP: "+IP_ADDRESS+"\n"+"Template: "+TEMPLATE_PATH+"\n"+"Vmid: "+vmid+"\n"+"Cpu: "+CPU_COUNT+"\n"+"Disk: "+DISK_SIZE+"\n"+"Hostname: "+finalHostname+"\n"+"Memoire: "+MEMORY_SIZE+"\n"+"password: "+PASSWORD_CONTAINER);
         
         try {
             pve.createOpenvz(node, containerT);

@@ -114,4 +114,21 @@ public class Database {
         return contId;
     }
     
+    public boolean UpdateIpadress(String IpAdress, Boolean affected) {
+        String insert = "Insertion";
+        boolean executed = false;
+        try {
+            // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
+            stmt.execute("UPDATE "+IPadressesTable+" SET AFFECTED = "+affected+" WHERE (" + IPadressesTable + ".ADRESS='" + IpAdress + "')");
+            executed = true;
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            insert = "IpAdress : " + sqlExcept.toString();
+            executed = false;
+        }
+        System.out.println(insert);
+        return executed;
+    }
+    
 }
