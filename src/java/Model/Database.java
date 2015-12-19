@@ -65,7 +65,7 @@ public class Database {
         return adress;
     }
     
-    public synchronized String AddContainer(int idContainer, String IpAdress,int remotePort) {
+    public synchronized String AddContainer(int idContainer, String IpAdress,int remotePort,String finalHostname) {
         int refIpAdress = 0;
         String affected = "true";
         String insert = "Insertion";
@@ -78,7 +78,7 @@ public class Database {
                 refIpAdress = resultsIp.getInt(resultsIp.findColumn("ID"));
                 System.out.println("***************" + refIpAdress + "---");
             }
-            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS,REMOTEPORT) values ("+ idContainer + "," + affected +","+ refIpAdress + "," + remotePort + ")");
+            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS,REMOTEPORT,FINALHOSTNAME) values ("+ idContainer + "," + affected +","+ refIpAdress + "," + remotePort+ ",'" + finalHostname + "')");
             stmt.close();
         } catch (SQLException sqlExcept) {
             insert = "Container : " + sqlExcept.toString();

@@ -107,15 +107,16 @@ public class FormCreatContenaire extends HttpServlet {
        String DISK_SIZE = request.getParameter("disk");
        String MEMORY_SIZE = request.getParameter("ram");
        String HOSTNAME = request.getParameter("hostname");
+       String finalHostname = HOSTNAME+""+vmid;
        String PASSWORD_CONTAINER = request.getParameter("passwordDefault");
        
        System.out.println("*************************VMID : "+vmid);
        
-       resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,HOSTNAME,PASSWORD_CONTAINER);
+       resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
        if(resul)
        {
            data.UpdateIpadress(adress, true);
-           data.AddContainer(vmid, adress,remotePort);
+           data.AddContainer(vmid, adress,remotePort,finalHostname);
            
            /********Add the iptables NAT rule******/
            int localPort = 22; //Port à lancer sur le VNC ??
@@ -124,7 +125,7 @@ public class FormCreatContenaire extends HttpServlet {
            Session session;
            try {
                 session = jsch.getSession("root", "149.202.70.57", 22);
-                session.setPassword("****************"); //Set the true Password
+                session.setPassword("*****************"); //Set the true Password
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 session.setConfig(config);
