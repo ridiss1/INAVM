@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import IAAS.Iaas;
 import Model.Database;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
@@ -109,6 +116,37 @@ public class FormCreatContenaire extends HttpServlet {
        {
            data.UpdateIpadress(adress, true);
            data.AddContainer(vmid, adress,remotePort);
+           
+           /********Add the iptables NAT rule******/
+           int localPort = 22; //Port à lancer sur le VNC ??
+           String myCommand = "iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport "+ remotePort +" -j DNAT --to "+adress+":"+localPort;
+           JSch jsch=new JSch();
+           Session session;
+           try {
+                session = jsch.getSession("root", "149.202.70.57", 22);
+                session.setPassword("****************"); //Set the true Password
+                Properties config = new Properties();
+                config.put("StrictHostKeyChecking", "no");
+                session.setConfig(config);
+                session.connect();
+
+                ChannelExec channel=(ChannelExec) session.openChannel("exec");
+                BufferedReader in=new BufferedReader(new InputStreamReader(channel.getInputStream()));
+                channel.setCommand(myCommand);
+                channel.connect();
+                String msg=null;
+                while((msg=in.readLine())!=null){
+                    System.out.println(msg);
+                }
+
+                channel.disconnect();
+                session.disconnect();
+                System.out.println("**NAT well configured !!**");
+           } 
+           catch (JSchException ex) {
+            Logger.getLogger(FormCreatContenaire.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("**Error configuration NAT !!**");
+           }
            
            response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
