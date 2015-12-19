@@ -94,6 +94,7 @@ public class FormCreatContenaire extends HttpServlet {
        System.out.println("pass1");
        String adress = data.GetAvailableIpAdress();
        int vmid = data.GetLastContainerId();
+       int remotePort = data.GetLastRemotePort();
        String CPU_COUNT = request.getParameter("cpus");
        String TEMPLATE = request.getParameter("template");
        String DISK_SIZE = request.getParameter("disk");
@@ -107,7 +108,7 @@ public class FormCreatContenaire extends HttpServlet {
        if(resul)
        {
            data.UpdateIpadress(adress, true);
-           data.AddContainer(vmid, adress);
+           data.AddContainer(vmid, adress,remotePort);
            
            response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {

@@ -65,7 +65,7 @@ public class Database {
         return adress;
     }
     
-    public synchronized String AddContainer(int idContainer, String IpAdress) {
+    public synchronized String AddContainer(int idContainer, String IpAdress,int remotePort) {
         int refIpAdress = 0;
         String affected = "true";
         String insert = "Insertion";
@@ -78,7 +78,7 @@ public class Database {
                 refIpAdress = resultsIp.getInt(resultsIp.findColumn("ID"));
                 System.out.println("***************" + refIpAdress + "---");
             }
-            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS) values ("+ idContainer + "," + affected +","+ refIpAdress + ")");
+            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS,REMOTEPORT) values ("+ idContainer + "," + affected +","+ refIpAdress + "," + remotePort + ")");
             stmt.close();
         } catch (SQLException sqlExcept) {
             insert = "Container : " + sqlExcept.toString();
@@ -112,6 +112,33 @@ public class Database {
         }
         
         return contId;
+    }
+    
+    public int GetLastRemotePort() {
+        int remotePort= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable);    
+           System.out.println("Results==========" + results);
+           
+           if (results.last()) {
+                remotePort = results.getInt(results.findColumn("REMOTEPORT"));
+                System.out.println("***************Last Remote POrt" + remotePort + "---");
+                remotePort ++;
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return remotePort;
     }
     
     public boolean UpdateIpadress(String IpAdress, Boolean affected) {
