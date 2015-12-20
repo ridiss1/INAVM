@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +23,9 @@ public class Database {
     private Statement stmt = null;
     private final String IPadressesTable = "IPADRESSES";
     private final String ContainersTable = "CONTAINER";
+    private final String TempDefaultTable = "TEMPLATESDEFAULT";
+    private final String TemplatesTable = "TEMPLATES";
+    private final String ContTempTable = "CONTAINERTEMPLATE";
     
     //Constructor
     public Database(){
@@ -158,4 +162,163 @@ public class Database {
         return executed;
     }
     
+    public ArrayList<String> GetTemplatesDefault() {
+        
+        ArrayList<String> templates = new ArrayList<String>(); 
+        int i=0;
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+TempDefaultTable);    
+           System.out.println("Results==========" + results);
+           
+           while(results.next()) {
+            
+                templates.add(results.getString(results.findColumn("OSTEMPLATE")));                        
+                System.out.println("***************template "+(i+1)+": "+templates.get(i));
+                i++;
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return templates;
+    }
+    
+    public ArrayList<String> GetTemplatesCustom() {
+        ArrayList<String> templates = new ArrayList<String>();
+        int i=0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable);    
+           System.out.println("Results==========" + results);
+           
+           while(results.next()) {
+               
+                templates.add(results.getString(results.findColumn("NAME")));
+                System.out.println("***************template "+(i+1)+": "+templates.get(i));
+                i++;
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return templates;
+    }
+    
+    public synchronized String AddContainerTemplate(int idContainer,int template,int templateDefault) {//a container is created with template or templedefault, 0 == null
+        
+        String insert = "Insertion";
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
+            if (template ==0)//container is created with template default
+            {
+                stmt.execute("insert into " + ContTempTable + " (CONTAINER,TEMPLATE,TEMPLATEDEFAULT) values ("+ idContainer + ",null,"+ templateDefault + ")");
+            }
+            else
+            {//container is created with template custom
+                stmt.execute("insert into " + ContTempTable + " (CONTAINER,TEMPLATE,TEMPLATEDEFAULT) values ("+ idContainer + ","+templateDefault+",null)");
+            }
+            
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            insert = "Container : " + sqlExcept.toString();
+        }
+        System.out.println(insert);
+        return insert;
+    }
+    
+    public int GetContainerIdByVmId(int vmId) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+" WHERE(" + ContainersTable + ".IDCONTAINER=" + vmId + ")");    
+           System.out.println("Results==========" + results);
+           
+           if (results.next()) {
+                id = results.getInt(results.findColumn("ID"));
+                System.out.println("***************ID : " + id + "---");
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }  
+    
+    public int GetTempCusIdByName(String name) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable+" WHERE(" + TemplatesTable + ".NAME='" + name + "')");    
+           System.out.println("Results==========" + results);
+           
+           if (results.next()) {
+                id = results.getInt(results.findColumn("ID"));
+                System.out.println("***************ID : " + id + "---");
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }
+    
+    public int GetTempDefIdByOSTemp(String ostemp) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+TempDefaultTable+" WHERE(" + TempDefaultTable + ".OSTEMPLATE='" + ostemp + "')");    
+           System.out.println("Results==========" + results);
+           
+           if (results.next()) {
+                id = results.getInt(results.findColumn("ID"));
+                System.out.println("***************ID : " + id + "---");
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }
 }

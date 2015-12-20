@@ -8,6 +8,10 @@
         <servlet-name>AuthentificationServlet</servlet-name>
         <servlet-class>Controller.AuthentificationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListTemplates</servlet-name>
+        <servlet-class>Controller.ListTemplates</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FormCreatContenaire</servlet-name>
         <url-pattern>/FormCreatContenaire</url-pattern>
@@ -19,6 +23,10 @@
     <servlet-mapping>
         <servlet-name>AuthentificationServlet</servlet-name>
         <url-pattern>/AuthentificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTemplates</servlet-name>
+        <url-pattern>/ListTemplates</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

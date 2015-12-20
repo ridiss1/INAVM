@@ -20,6 +20,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +83,14 @@ public class FormCreatContenaire extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ArrayList<String> templatesDefault = new ArrayList<String>();
+        ArrayList<String> templatesCustom = new ArrayList<String>();
+        
+        templatesDefault = data.GetTemplatesDefault();
+        templatesCustom = data.GetTemplatesCustom();
+        request.setAttribute("tempDefault",templatesDefault);
+        request.setAttribute("tempCustom", templatesCustom);
+        request.getRequestDispatcher("vmProfCreation.jsp").forward(request, response);
     }
 
     /**
@@ -98,25 +106,48 @@ public class FormCreatContenaire extends HttpServlet {
             throws ServletException, IOException {
         
        
-       System.out.println("pass1");
+       System.out.println("Form Create Container");
        String adress = data.GetAvailableIpAdress();
        int vmid = data.GetLastContainerId();
        int remotePort = data.GetLastRemotePort();
        String CPU_COUNT = request.getParameter("cpus");
        String TEMPLATE = request.getParameter("template");
+       String TEMPLATEDEFAULT = request.getParameter("templatedefault");
        String DISK_SIZE = request.getParameter("disk");
        String MEMORY_SIZE = request.getParameter("ram");
        String HOSTNAME = request.getParameter("hostname");
        String finalHostname = HOSTNAME+""+vmid;
        String PASSWORD_CONTAINER = request.getParameter("passwordDefault");
+       int entTempCus = 0;
+       int entTempDef = 0;
        
        System.out.println("*************************VMID : "+vmid);
+       System.out.println("*************************TEMPLATE : "+TEMPLATE+"\n"+"TEMPLATEDEFAULT : "+TEMPLATEDEFAULT);
        
-       resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
+       if(TEMPLATE.equalsIgnoreCase("null") && TEMPLATEDEFAULT.equalsIgnoreCase("null") == false)
+       {
+           System.out.println("TEMPLATEDEFAULT");
+           resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATEDEFAULT,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
+           entTempDef = data.GetTempDefIdByOSTemp(TEMPLATEDEFAULT);
+       }
+       else if (TEMPLATEDEFAULT.equalsIgnoreCase("null") && TEMPLATE.equalsIgnoreCase("null") == false)
+       {
+           System.out.println("TEMPLATECUSTOM");
+           resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
+           entTempCus = data.GetTempCusIdByName(TEMPLATE);
+       }
+       else
+       {
+           System.out.println("TEMPLATEERROR");
+           resul =false;
+       }
+       
        if(resul)
        {
            data.UpdateIpadress(adress, true);
            data.AddContainer(vmid, adress,remotePort,finalHostname);
+           int idC = data.GetContainerIdByVmId(vmid);
+           data.AddContainerTemplate(idC, entTempCus, entTempDef);
            
            /********Add the iptables NAT rule******/
            int localPort = 22; //Port à lancer sur le VNC ??

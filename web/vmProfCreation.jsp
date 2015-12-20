@@ -55,9 +55,9 @@
                     <ul>
                         <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
 
-                        <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtuel Machine</span></a></li>
+                        <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
-                        <li><a href="accueil_template.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
 
                         <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
                     </ul>
@@ -78,10 +78,13 @@
                     <br/>
                     <ul class="nav nav-tabs">
                         <li ><a href="vmProf.jsp">List VMs</a></li>
-                        <li class="active"><a href="vmProfCreation.jsp">Creation</a></li>                  
+                        <li class="active"><a href="${pageContext.request.contextPath}/FormCreatContenaire">Creation</a></li>                  
                     </ul>
                 </div>
             </section>
+            <p>${result}</p>
+            <p>${test}</p>
+            
             <section id="creation_vm" >
                 <div class="container">
                     <header> <h1>Creation d'un container</h1></header>
@@ -125,14 +128,26 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="template" class="col-sm-2 control-label">Template</label>
-                            <div class="col-sm-5">
+                            <label for="template" class="col-sm-2 control-label">Template * (choose one)</label>
+                            <div class="form-inline">
+                            <div class="col-sm-6">
+                                <select class="form-control" name="templatedefault" id="template">
+                                    <option value="null">Default Templates</option>
+                                    <c:forEach items="${tempDefault}" var="item">
+                                        <option>${item} </option>
+                                    </c:forEach>
+                               
+                                </select>
+                                
                                 <select class="form-control" name="template" id="template">
-                                   
-                                    <option>debian-7.0-standard_7.0-2_i386.tar.gz </option> 
+                                    <option value="null">My templates</option>
+                                    <c:forEach items="${tempCustom}" var="item">
+                                        <option>${item} </option>
+                                    </c:forEach>
                                
                                 </select>
                             </div>  
+                            </div>
 
                         </div>
                         

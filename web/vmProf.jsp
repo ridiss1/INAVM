@@ -55,9 +55,9 @@
                     <ul>
                         <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
 
-                        <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtuel Machine</span></a></li>
+                        <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
-                        <li><a href="accueil_template.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
    
                         <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
                     </ul>
@@ -77,8 +77,8 @@
                     <br/>
                     <br/>
                     <ul class="nav nav-tabs">
-                        <li ><a href="vmProf.jsp">List VMs</a></li>
-                        <li class="active"><a href="vmProfCreation.jsp">Creation</a></li>                  
+                        <li class="active" ><a href="vmProf.jsp">List VMs</a></li>
+                        <li ><a href="${pageContext.request.contextPath}/FormCreatContenaire">Creation</a></li>                  
                     </ul>
                 </div>
             </section>

@@ -1,31 +1,35 @@
 <%-- 
-    Document   : acceuilProf
-Created on : Dec 13 2015, 11:03:59 AM
-    Author     : ridiss
+    Document   : displayTemplates
+    Created on : 20 déc. 2015, 13:47:49
+    Author     : Jean
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Accueil</title>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="" />
         <meta name="keywords" content="" />
+        <title>VM Templates</title>
         <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.scrolly.min.js"></script>
         <script src="js/jquery.scrollzer.min.js"></script>
         <script src="js/skel.min.js"></script>
         <script src="js/skel-layers.min.js"></script>
         <script src="js/init.js"></script>
-        <link href="css/my_style.css" rel="stylesheet" type="text/css"/>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <noscript>
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/style-wide.css" />
+        <link href="css/my_style.css" rel="stylesheet" type="text/css"/>
+
         </noscript>
         <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
@@ -47,47 +51,53 @@ Created on : Dec 13 2015, 11:03:59 AM
                 <nav id="nav">
 
                     <ul>
-                        <li><a class="active" href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
 
                         <li><a href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
-                        <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
+                        <li><a class="active" href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Templates</span></a></li>
 
-                        <li><a href="connexion.jsp" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
                     </ul>
                 </nav>
 
             </div>
 
         </div>
+                    
         <!-- Main -->
         <div id="main">
-            <!-- Intro -->
-            <section id="top" class="one dark cover">
+                        
+            <div class="header ">
+                <h1> &nbsp; My Templates </h1>
+            </div>
+            
+            <section id="list_template">
+                
                 <div class="container">
                     
-                    <header >
-                        <!-- Logo -->
-                        <div align="center">
-                            </br> </br> </br>
-                                
-                                <a  class="button scrolly">Bienvenue dans la page professeur</a>
-                        </div>
-                    </header>
+                    <a href="#" class="list-group-item active">
+                        Liste des templates
+                    </a>
+                    
+                    <table class="table table-hover">
+                        
+                        <thead>
+                            <tr>
+                                <th>OS Template</th>
+                                <th>Version</th>
+                                <th>List VMs</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody id='row_1'> ${templates} </tbody>
+                        
+                    </table>
+                        
                 </div>
+                        
             </section>
-        </div>
-
-        <!-- Footer -->
-        <div id="footer">
-
-            <!-- Copyright -->
-            <ul class="copyright">
-                <li>&copy; INAVM. All rights reserved.</li>
-            </ul>
 
         </div>
-
     </body>
-
 </html>
