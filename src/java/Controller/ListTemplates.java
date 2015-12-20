@@ -5,8 +5,11 @@
  */
 package Controller;
 
+import Model.Database;
+import Model.TemplateVM;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jean
  */
 public class ListTemplates extends HttpServlet {
+    
+    private Database data = new Database();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +62,14 @@ public class ListTemplates extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        request.setAttribute("result", "This is the result of the servlet call");
+        ArrayList<TemplateVM> templates =data.GetTemplatesVM();
+        String tempVm = "";
+        for (TemplateVM temp:templates )
+        {
+            tempVm += temp.getTemplateName()+"-*************-";
+        }
+        
+        request.setAttribute("templates", tempVm);
         request.getRequestDispatcher("displayTemplates.jsp").forward(request, response);
     }
 

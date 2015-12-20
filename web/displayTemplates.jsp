@@ -84,8 +84,7 @@
                         
                         <thead>
                             <tr>
-                                <th>OS Template</th>
-                                <th>Version</th>
+                                <th>OS Template_Version</th>
                                 <th>List VMs</th>
                             </tr>
                         </thead>

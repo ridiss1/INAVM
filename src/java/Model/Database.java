@@ -12,6 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import Model.TemplateVM;
 
 /**
  *
@@ -320,5 +321,85 @@ public class Database {
         }
         
         return id;
+    }
+    
+    public ArrayList<TemplateVM> GetTemplatesVM() {
+        ArrayList<TemplateVM> templates = new ArrayList<TemplateVM>();
+        ArrayList<TemplateVM> templatesDefault = new ArrayList<TemplateVM>();
+        ArrayList<TemplateVM> templatesCustom = new ArrayList<TemplateVM>();
+        int iTempNameDef=0;
+        int iVmTempDef=0;
+        int iTempNameCus=0;
+        int iVmTempCus=0;
+       
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           /**************Select all the default templates*******************/ 
+           results = stmt.executeQuery("SELECT  *  FROM "+TempDefaultTable);    
+           System.out.println("Results==========" + results);
+           
+           while(results.next()) {
+               
+                TemplateVM tempVm = new TemplateVM(results.getString(results.findColumn("OSTEMPLATE")),results.getInt(results.findColumn("ID")));
+                templatesDefault.add(tempVm);
+                System.out.println("***************template "+(iTempNameDef+1)+": "+templatesDefault.get(iTempNameDef).getTemplateName()+ "id : "+templatesDefault.get(iTempNameDef).getIdTemplate());
+                iTempNameDef++;
+           }
+           /************select all the vms of the default templates*************/
+           for (TemplateVM temp : templatesDefault ) {
+            results = stmt.executeQuery("SELECT * FROM "+ContainersTable+" WHERE "+ContainersTable+".ID IN (SELECT "+ContTempTable+".CONTAINER FROM "+ContTempTable+" WHERE "+ContTempTable+".TEMPLATEDEFAULT ="+temp.getIdTemplate()+")");
+            while(results.next()) {
+               
+                String vmName = results.getString(results.findColumn("FINALHOSTNAME"));
+                System.out.println("*************** Vm NAme: "+vmName);
+                temp.getVms().add(vmName);
+                System.out.println("*************** "+iVmTempDef+" : "+temp.getTemplateName()+ "Vm : "+vmName);
+                iVmTempDef++;
+            }
+           }
+           
+           /**************Select all the custom templates*******************/ 
+           results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable);    
+           System.out.println("Results==========" + results);
+           
+           while(results.next()) {
+               
+                TemplateVM tempVm = new TemplateVM(results.getString(results.findColumn("NAME")),results.getInt(results.findColumn("ID")));
+                templatesCustom.add(tempVm);
+                System.out.println("***************template "+(iTempNameCus+1)+": "+templatesCustom.get(iTempNameCus).getTemplateName()+ "id : "+templatesCustom.get(iTempNameCus).getIdTemplate());
+                iTempNameCus++;
+           }
+           /************select all the vms of the custom templates*************/
+           for (TemplateVM temp : templatesCustom ) {
+            results = stmt.executeQuery("SELECT * FROM "+ContainersTable+" WHERE "+ContainersTable+".ID IN (SELECT "+ContTempTable+".CONTAINER FROM "+ContTempTable+" WHERE "+ContTempTable+".TEMPLATE ="+temp.getIdTemplate()+")");
+            while(results.next()) {
+               
+                String vmName = results.getString(results.findColumn("FINALHOSTNAME"));
+                temp.getVms().add(vmName);
+                System.out.println("*************** "+iVmTempCus+" : "+temp.getTemplateName()+ "Vm : "+vmName);
+                iVmTempCus++;
+            }
+           }
+           
+           /**********************Merge default and custom templates ******************/
+           for (TemplateVM temp : templatesDefault) {
+            templates.add(temp);
+           }
+           for (TemplateVM temp : templatesCustom) {
+            templates.add(temp);
+           }
+           
+                      
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return templates;
     }
 }
