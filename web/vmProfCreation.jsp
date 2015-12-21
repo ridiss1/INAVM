@@ -82,8 +82,6 @@
                     </ul>
                 </div>
             </section>
-            <p>${result}</p>
-            <p>${test}</p>
             
             <section id="creation_vm" >
                 <div class="container">
@@ -127,8 +125,10 @@
 
                         </div>
                         
+                        <p style="color:red">${result}</p>
+                        
                         <div class="form-group">
-                            <label for="template" class="col-sm-2 control-label">Template * (choose one)</label>
+                            <label for="template" class="col-sm-2 control-label">Template * (choisir un template)</label>
                             <div class="form-inline">
                             <div class="col-sm-6">
                                 <select class="form-control" name="templatedefault" id="template">

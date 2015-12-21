@@ -34,19 +34,39 @@ public class ListTemplates extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListTemplates</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListTemplates at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        ArrayList<TemplateVM> templates =data.GetTemplatesVM();
+        int virg = 0;
+        String tempVm = "";
+        for (TemplateVM temp:templates )
+        {
+            tempVm += "<tr class='odd'><td>"+temp.getTemplateName()+"</td><td>";
+            for(String vm: temp.getVms())
+            {
+                if(virg == 0)
+                {
+                    tempVm+=vm;
+                    virg++;
+                }
+                else
+                {
+                    tempVm+=", "+vm;
+                }
+            }
+            if(virg == 0)
+            {
+                tempVm+="No Vms </td></tr>";
+            }
+            else
+            {
+                tempVm+="</td></tr>";
+            }
+            virg = 0;
+            
         }
+        
+        System.out.println("trame ***************** "+tempVm);
+        request.setAttribute("templates", tempVm);
+        request.getRequestDispatcher("displayTemplates.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,12 +83,36 @@ public class ListTemplates extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         ArrayList<TemplateVM> templates =data.GetTemplatesVM();
+        int virg = 0;
         String tempVm = "";
         for (TemplateVM temp:templates )
         {
-            tempVm += temp.getTemplateName()+"-*************-";
+            tempVm += "<tr class='odd'><td>"+temp.getTemplateName()+"</td><td>";
+            for(String vm: temp.getVms())
+            {
+                if(virg == 0)
+                {
+                    tempVm+=vm;
+                    virg++;
+                }
+                else
+                {
+                    tempVm+=", "+vm;
+                }
+            }
+            if(virg == 0)
+            {
+                tempVm+="No Vms </td></tr>";
+            }
+            else
+            {
+                tempVm+="</td></tr>";
+            }
+            virg = 0;
+            
         }
         
+        System.out.println("trame ***************** "+tempVm);
         request.setAttribute("templates", tempVm);
         request.getRequestDispatcher("displayTemplates.jsp").forward(request, response);
     }

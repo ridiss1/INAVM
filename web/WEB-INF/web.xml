@@ -12,6 +12,10 @@
         <servlet-name>ListTemplates</servlet-name>
         <servlet-class>Controller.ListTemplates</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateTemplate</servlet-name>
+        <servlet-class>Controller.CreateTemplate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FormCreatContenaire</servlet-name>
         <url-pattern>/FormCreatContenaire</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>ListTemplates</servlet-name>
         <url-pattern>/ListTemplates</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateTemplate</servlet-name>
+        <url-pattern>/CreateTemplate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

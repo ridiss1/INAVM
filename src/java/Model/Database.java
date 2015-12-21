@@ -402,4 +402,134 @@ public class Database {
         
         return templates;
     }
+    
+    public ArrayList<String> GetAllFinalHostnames() {
+        ArrayList<String> finalHostnames = new ArrayList<String>();
+        int i=0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable);    
+           System.out.println("Results==========" + results);
+           
+           while(results.next()) {
+               
+                finalHostnames.add(results.getString(results.findColumn("FINALHOSTNAME")));
+                System.out.println("***************finalHostname "+(i+1)+": "+finalHostnames.get(i));
+                i++;
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return finalHostnames;
+    }
+    
+    public int GetContIdByHostname(String hostname) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+" WHERE(" + ContainersTable + ".FINALHOSTNAME='" + hostname + "')");    
+           System.out.println("Results==========" + results);
+           
+           if (results.next()) {
+                id = results.getInt(results.findColumn("ID"));
+                System.out.println("***************ID : " + id + "---");
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }
+    
+    public int GetLastContTempVersion(int container) {
+        int version= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable+" WHERE(" + TemplatesTable + ".REFCONTAINER=" + container + ")");    
+           System.out.println("Results==========" + results);
+           
+           if (results.last()) {
+                version = results.getInt(results.findColumn("VERSION"));
+                System.out.println("***************Last Remote POrt" + version + "---");
+                version ++;
+           }
+           else
+           {
+               version = 1;
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return version;
+    }
+    
+    public int GetVmIdByHostname(String hostname) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+" WHERE(" + ContainersTable + ".FINALHOSTNAME='" + hostname + "')");    
+           System.out.println("Results==========" + results);
+           
+           if (results.next()) {
+                id = results.getInt(results.findColumn("IDCONTAINER"));
+                System.out.println("***************ID : " + id + "---");
+           }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }
+    
+    public synchronized String AddCustomTemplate(int refContainer,int version,String name) {//a container is created with template or templedefault, 0 == null
+        
+        String insert = "Insertion";
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
+                stmt.execute("insert into " + TemplatesTable + " (NAME,REFCONTAINER,VERSION) values ('"+ name + "',"+refContainer+","+ version + ")");
+            
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            insert = "Template : " + sqlExcept.toString();
+        }
+        System.out.println(insert);
+        return insert;
+    }
+    
 }

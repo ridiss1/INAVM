@@ -1,6 +1,6 @@
 <%-- 
-    Document   : displayTemplates
-    Created on : 20 déc. 2015, 13:47:49
+    Document   : createTemplate
+    Created on : 21 déc. 2015, 18:39:20
     Author     : Jean
 --%>
 
@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="" />
         <meta name="keywords" content="" />
-        <title>VM Templates</title>
+        <title>Create Template</title>
         <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-
+        
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.scrolly.min.js"></script>
         <script src="js/jquery.scrollzer.min.js"></script>
@@ -64,46 +64,50 @@
             </div>
 
         </div>
-                    
+                        
         <!-- Main -->
         <div id="main">
                         
-            <div class="header ">
-                <h1> &nbsp; Mes Templates </h1>
-            </div>
-            
-            <section id="list_template">
-                
+            <section id="creation_template" >
                 <div class="container">
+                    <header> <h1>Creation d'un template</h1></header>
                     
-                    <a href="#" class="list-group-item active">
-                        Liste des templates
-                    </a>
-                    
-                    <table class="table table-hover">
+                    <p style="color:red"><i>Assurez vous que le container dont vous voulez créer un template est en cours d'exécution.</i></p>
+                   
+                    <form method="post" action="CreateTemplate" class="form-horizontal" role="form" >
                         
-                        <thead>
-                            <tr>
-                                <th>OS Template_Version</th>
-                                <th>List VMs</th>
-                            </tr>
-                        </thead>
+                        <div class="form-group">
+                            <label for="template" class="col-sm-2 control-label">Container *</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="contFinalHostname" id="finalHostname">
+                                    <option value="null">Choisir un container</option>
+                                    <c:forEach items="${containers}" var="item">
+                                        <option>${item} </option>
+                                    </c:forEach>
+                               
+                                </select>
+                            </div>
+                        </div>
                         
-                        <tbody id='row_1'> ${templates}</tbody>
-                        
-                    </table>
-                        
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" name="actionAdd" value="CreerTemplate">Valider</button>
+                            </div>
+                        </div>
+
+                    </form>
+
                 </div>
-                        
+                                    
+               
             </section>
-            
-            <div align="center">
-              <a href="${pageContext.request.contextPath}/CreateTemplate"><button type="button" class="btn btn-primary btn-lg">Creer un template</button></a>              
-            </div>
-            
+
         </div>
-        <hr>  
-            <!-- Footer -->
+
+        
+
+
+        <!-- Footer -->
         <div id="footer">
 
             <!-- Copyright -->

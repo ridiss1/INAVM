@@ -140,6 +140,9 @@ public class FormCreatContenaire extends HttpServlet {
        {
            System.out.println("TEMPLATEERROR");
            resul =false;
+           String msg = "Vous devez choisir un seul template ";
+           request.setAttribute("result", msg);
+           doGet(request,response);
        }
        
        if(resul)
@@ -156,7 +159,7 @@ public class FormCreatContenaire extends HttpServlet {
            Session session;
            try {
                 session = jsch.getSession("root", "149.202.70.57", 22);
-                session.setPassword("*****************"); //Set the true Password
+                session.setPassword("***************"); //Set the true Password
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 session.setConfig(config);

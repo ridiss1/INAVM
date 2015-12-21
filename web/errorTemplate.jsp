@@ -1,6 +1,6 @@
 <%-- 
-    Document   : displayTemplates
-    Created on : 20 déc. 2015, 13:47:49
+    Document   : errorTemplate
+    Created on : 21 déc. 2015, 20:12:08
     Author     : Jean
 --%>
 
@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="" />
         <meta name="keywords" content="" />
-        <title>VM Templates</title>
+        <title>Create Template</title>
         <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
 
         <script src="js/jquery.min.js"></script>
@@ -69,34 +69,11 @@
         <div id="main">
                         
             <div class="header ">
-                <h1> &nbsp; Mes Templates </h1>
+                <h1> &nbsp; Mon Template </h1>
             </div>
             
-            <section id="list_template">
-                
-                <div class="container">
-                    
-                    <a href="#" class="list-group-item active">
-                        Liste des templates
-                    </a>
-                    
-                    <table class="table table-hover">
+            <p style="color:red">Une erreur est survenue lors de la création du template. Vérifiez que votre machine est en cours d'exécution puis essayer à nouveau. </p>
                         
-                        <thead>
-                            <tr>
-                                <th>OS Template_Version</th>
-                                <th>List VMs</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody id='row_1'> ${templates}</tbody>
-                        
-                    </table>
-                        
-                </div>
-                        
-            </section>
-            
             <div align="center">
               <a href="${pageContext.request.contextPath}/CreateTemplate"><button type="button" class="btn btn-primary btn-lg">Creer un template</button></a>              
             </div>
