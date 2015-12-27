@@ -71,8 +71,6 @@ public class Iaas {
         Container containerT = new Container(TEMPLATE_PATH, vmid, CPU_COUNT, DISK_SIZE, HOSTNAME, MEMORY_SIZE, PASSWORD_CONTAINER);
         containerT.setIp_address(IP_ADDRESS);
         
-        System.out.println("\n AdresseIP: "+IP_ADDRESS+"\n"+"Template: "+TEMPLATE_PATH+"\n"+"Vmid: "+vmid+"\n"+"Cpu: "+CPU_COUNT+"\n"+"Disk: "+DISK_SIZE+"\n"+"Hostname: "+HOSTNAME+"\n"+"Memoire: "+MEMORY_SIZE+"\n"+"password: "+PASSWORD_CONTAINER);
-        
         try {
             pve.createOpenvz(node, containerT);
             result = true;
@@ -209,5 +207,33 @@ public class Iaas {
        
         return true;
     }
+
+        /**
+     * 
+     * @param vmid = id du container 
+     * @return ( Utilisé la methode container.toString pour afficher les résultats retournés )
+     */
+    public Container getContainer (int vmid){
+        
+            Container container = null;
+            try {
+                container =  pve.getOpenvzCT("ns3021937", vmid);
+            } catch (JSONException | LoginException | IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        return container;
+    }
     
+    /**
+     * @param vmid = id du container 
+     * @return lien https vers la console du container  
+     */
+    public String getConsole(int vmid){
+        
+       // retourne url de la console 
+       Container container =this.getContainer(vmid);
+       String url ="https://"+pve.getPve_hostname()+":8006/?console=openvz&novnc=1&vmid="+vmid+"&vmname="+container.getHostname()+"&node=ns3021937";
+       return url;
+    }
 }
