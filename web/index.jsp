@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-                                <span class="pull-right"><a href="registrationForm.jsp">Register</a></span><span><a href="#">Need help?</a></span>
+                                <span class="pull-right"><p>Don't have an account? <a href="registrationForm.jsp">Register</a></p></span><span><a href="#">Need help?</a></span>
 <!--                                <p>Don't have an account, <a href="registrationForm.jsp">Sign Up</a></p>-->
                             </div>
                         </form>

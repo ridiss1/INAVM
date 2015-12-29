@@ -93,7 +93,7 @@
                                 </select>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <a href="index.html" class="btn btn-lg btn-success btn-block">Save</a>
+                            <a href="index.jsp" class="btn btn-lg btn-success btn-block">Save</a>
                         </fieldset>
                     </form>
                 </div>
