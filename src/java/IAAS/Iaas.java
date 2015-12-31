@@ -13,6 +13,7 @@ import javax.security.auth.login.LoginException;
 import net.elbandi.pve2api.Pve2Api;
 import net.elbandi.pve2api.data.Container;
 import net.elbandi.pve2api.data.VncData;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -164,18 +165,73 @@ public class Iaas {
      * @return un tableau de json contenant les caractéristiques par 
      * heure de la machine depuis son allumage ( cas "hour") : RRD data
      */
-    public String getStatistics(String node,int vmid,String param) throws JSONException{
-         String result=null;
+   public String getStatistics(String node, int vmid, String param) throws JSONException {
+        String result = null;
+        String result1, result2, result3, result4;
+        
         try {
+            /*
+            *Returns the statistics on one single line with the square brackets
+            *At the beginning and at the end
+             */
             result = pve.getStatistics(node, vmid, param);
-            System.out.println(result);            
-        } catch (LoginException ex) {
+            /*
+            The following result is without the "[]". 
+            So our json results now are surrounded by "{}"
+            */
+            result1 = result.substring(1, result.length()-1);
+            result2 = result.replaceAll("\\[", "{ \"result2\":["); 
+            result3 = result2.concat("}");
+//            result4 = result3.replace("{\"disk\"", "\\\\n {\"disk\"");
+            
+//            System.out.println("Result: "+result);
+//            System.out.println("Result1: "+result1);  
+            System.out.println("Result2: "+result2);
+//            System.out.println("Result4: "+result4);
+//            /*
+//             To parse the previous results in an array
+//             */
+            JSONObject jObj = new JSONObject(result3);
+//            System.out.println("Objet Json : " +jObj);
+            JSONArray jArr = jObj.getJSONArray("result2");
+//            for (int i = 0; i < jArr.length(); i++) {
+////                System.out.println("JSONArray : " +jArr.getInt(i));
+//
+
+            // Get the first array of elements
+//            JSONArray values = jArr.getJSONArray(0);
+//            System.out.println("Values: "+values);
+////
+            for (int i = 0; i < jArr.length() ; i++) {
+
+                JSONObject item = jArr.getJSONObject(i);
+                
+                int disk = item.getInt("disk");
+                int mem = item.getInt("mem");
+                int maxdisk = item.getInt("maxdisk");
+                int diskread = item.getInt("diskread");
+                int cpu = item.getInt("cpu");
+                int time = item.getInt("time");
+                int netout = item.getInt("netout");
+                int maxcpu = item.getInt("maxcpu");
+                int maxmem = item.getInt("maxmem");
+                int diskwrite = item.getInt("diskwrite");
+                int netin = item.getInt("netin");
+
+//                //The display of the array with the results obtained above
+                System.out.println(disk + ", " + mem + ", " + maxdisk + ", " + diskread + ", " + cpu + ", " + time + ", " + netout + ","
+                        + " " + maxcpu + ", " + maxmem + ", " + diskwrite + ", " + netin);
+                
+
+              System.out.println(result);
+    }
+        }catch (LoginException ex) {
             Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
-     }
+            return result;
+        }
     
  
      
