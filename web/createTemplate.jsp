@@ -51,13 +51,13 @@
                 <nav id="nav">
 
                     <ul>
-                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
                         <li><a href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a class="active" href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Templates</span></a></li>
 
-                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
 
@@ -70,17 +70,17 @@
                         
             <section id="creation_template" >
                 <div class="container">
-                    <header> <h1>Creation d'un template</h1></header>
+                    <header> <h1>Template's creation</h1></header>
                     
-                    <p style="color:red"><i>Assurez vous que le container dont vous voulez créer un template est en cours d'exécution.</i></p>
+                    <p style="color:red"><i>Make sure that the VM from which you want to create a template is running.</i></p>
                    
                     <form method="post" action="CreateTemplate" class="form-horizontal" role="form" >
                         
                         <div class="form-group">
-                            <label for="template" class="col-sm-2 control-label">Container *</label>
+                            <label for="template" class="col-sm-2 control-label">VM *</label>
                             <div class="col-sm-6">
                                 <select class="form-control" name="contFinalHostname" id="finalHostname">
-                                    <option value="null">Choisir un container</option>
+                                    <option value="null">Choose a VM</option>
                                     <c:forEach items="${containers}" var="item">
                                         <option>${item} </option>
                                     </c:forEach>
@@ -91,7 +91,7 @@
                         
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary" name="actionAdd" value="CreerTemplate">Valider</button>
+                                <button type="submit" class="btn btn-primary" name="actionAdd" value="CreerTemplate">Validate</button>
                             </div>
                         </div>
 

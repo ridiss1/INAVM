@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Virtuel Machine</title>
+        <title>Virtual Machine</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -53,13 +53,13 @@
                 <nav id="nav">
 
                     <ul>
-                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
                         <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
 
-                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
 
@@ -72,7 +72,7 @@
             <section id="list_vm" class="vm">
                 <div class="container">
                     <div class="navbar-header ">
-                        <a class="navbar-brand active" href="#" ><h1>Gestion des VMs</h1></a>
+                        <a class="navbar-brand active" href="#" ><h1>Management of VMs</h1></a>
                     </div>
                     <br/>
                     <br/>
@@ -85,7 +85,7 @@
             
             <section id="creation_vm" >
                 <div class="container">
-                    <header> <h1>Creation d'un container</h1></header>
+                    <header> <h1>Container's creation(VM)</h1></header>
                    
                     <form method="post" action="FormCreatContenaire" class="form-horizontal" role="form" >
                         <div class="form-group">
@@ -128,7 +128,7 @@
                         <p style="color:red">${result}</p>
                         
                         <div class="form-group">
-                            <label for="template" class="col-sm-2 control-label">Template * (choisir un template)</label>
+                            <label for="template" class="col-sm-2 control-label">Template * (choose a template)</label>
                             <div class="form-inline">
                             <div class="col-sm-6">
                                 <select class="form-control" name="templatedefault" id="template">
@@ -152,7 +152,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="groupe" class="col-sm-2 control-label">Groupe</label>
+                            <label for="groupe" class="col-sm-2 control-label">Group</label>
                             <div class="col-sm-5">
                                 <select class="form-control" name="groupe" id="groupe">
                                 
@@ -184,7 +184,7 @@
                         
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default" name="actionAdd" value="CreerContainer">Valider</button>
+                                <button type="submit" class="btn btn-default" name="actionAdd" value="CreerContainer">Validate</button>
                             </div>
                         </div>
 

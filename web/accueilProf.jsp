@@ -10,7 +10,7 @@ Created on : Dec 13 2015, 11:03:59 AM
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Accueil</title>
+        <title>Home</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -47,13 +47,13 @@ Created on : Dec 13 2015, 11:03:59 AM
                 <nav id="nav">
 
                     <ul>
-                        <li><a class="active" href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a class="active" href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
                         <li><a href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
 
-                        <li><a href="connexion.jsp" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion.jsp" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
 
@@ -71,7 +71,7 @@ Created on : Dec 13 2015, 11:03:59 AM
                         <div align="center">
                             </br> </br> </br>
                                 
-                                <a  class="button scrolly">Bienvenue dans la page professeur</a>
+                                <a  class="button scrolly">Welcome in the profesor's page</a>
                         </div>
                     </header>
                 </div>

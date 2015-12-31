@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Virtuel Machine</title>
+        <title>Virtual Machine</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -53,13 +53,13 @@
                 <nav id="nav">
                     
                     <ul>
-                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
                         <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
    
-                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
                 
@@ -72,12 +72,12 @@
             <section id="list_vm" class="vm">
                 <div class="container">
                     <div class="navbar-header ">
-                        <a class="navbar-brand active" href="#" ><h1>Gestion des VMs</h1></a>
+                        <a class="navbar-brand active" href="#" ><h1>Management of VMs</h1></a>
                     </div>
                     <br/>
                     <br/>
                     <ul class="nav nav-tabs">
-                        <li class="active" ><a href="vmProf.jsp">List VMs</a></li>
+                        <li class="active" ><a href="vmProf.jsp">VMs list</a></li>
                         <li ><a href="${pageContext.request.contextPath}/FormCreatContenaire">Creation</a></li>                  
                     </ul>
                 </div>
@@ -87,7 +87,7 @@
                 
                 <div class="container">
                     <a href="#" class="list-group-item active">
-                        Liste des machines virtuelles
+                        List of the virtual machines
                     </a>
                     
                     <table class="table table-hover">

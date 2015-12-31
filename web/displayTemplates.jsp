@@ -51,13 +51,13 @@
                 <nav id="nav">
 
                     <ul>
-                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Accueil</span></a></li>
+                        <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
                         <li><a href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a class="active" href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Templates</span></a></li>
 
-                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Deconnexion</span></a></li>
+                        <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
 
@@ -69,7 +69,7 @@
         <div id="main">
                         
             <div class="header ">
-                <h1> &nbsp; Mes Templates </h1>
+                <h1> &nbsp; My Templates </h1>
             </div>
             
             <section id="list_template">
@@ -77,7 +77,7 @@
                 <div class="container">
                     
                     <a href="#" class="list-group-item active">
-                        Liste des templates
+                        Templates list
                     </a>
                     
                     <table class="table table-hover">
@@ -85,7 +85,7 @@
                         <thead>
                             <tr>
                                 <th>OS Template_Version</th>
-                                <th>List VMs</th>
+                                <th>VMs list</th>
                             </tr>
                         </thead>
                         
@@ -98,7 +98,7 @@
             </section>
             
             <div align="center">
-              <a href="${pageContext.request.contextPath}/CreateTemplate"><button type="button" class="btn btn-primary btn-lg">Creer un template</button></a>              
+              <a href="${pageContext.request.contextPath}/CreateTemplate"><button type="button" class="btn btn-primary btn-lg">Create a template</button></a>              
             </div>
             
         </div>
