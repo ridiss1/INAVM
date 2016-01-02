@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import static Controller.AuthentificationServlet.ATT_SESSION_USER;
 import Model.Database;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -23,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -129,7 +131,12 @@ public class CreateTemplate extends HttpServlet {
         if(created)
         {
             String name = contHostname+"_"+version+".tar.gz";
-            String insert = data.AddCustomTemplate(idCont, version, name);
+            /* Récupération de la session depuis la requête */
+           HttpSession webSession = request.getSession();
+           String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+           System.out.println("***************USER : "+user);
+           int idUser = data.GetIdByEmail(user);
+            String insert = data.AddCustomTemplate(idCont, version, name,idUser);
             System.out.println(insert);
             RequestDispatcher rd = request.getRequestDispatcher("ListTemplates");
             rd.forward(request,response);

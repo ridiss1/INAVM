@@ -74,6 +74,33 @@ public class Database {
         System.out.println("le r "+r);
         return r;
     }
+    
+    public int GetIdByEmail(String email) {
+        int id= 0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+            // the SQL select command will provide a ResultSet containing the query results
+            results = stmt.executeQuery("SELECT  *  FROM "+Nomtable+" WHERE (" + Nomtable + ".EMAIL='" + email + "')");
+            System.out.println("Results==========" + results);
+            
+            if (results.next()) {
+                id = results.getInt(results.findColumn("ID"));
+                System.out.println("***************idByEmail id : " + id + "---");
+            }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        return id;
+    }
+    
     public String GetAvailableIpAdress() {
         String adress = "No IP Adress";
         
@@ -101,7 +128,7 @@ public class Database {
         return adress;
     }
     
-    public synchronized String AddContainer(int idContainer, String IpAdress,int remotePort,String finalHostname) {
+    public synchronized String AddContainer(int idContainer, String IpAdress, int UserId, int remotePort,String finalHostname, String password) {
         int refIpAdress = 0;
         String affected = "true";
         String insert = "Insertion";
@@ -114,7 +141,7 @@ public class Database {
                 refIpAdress = resultsIp.getInt(resultsIp.findColumn("ID"));
                 System.out.println("***************" + refIpAdress + "---");
             }
-            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS,REMOTEPORT,FINALHOSTNAME) values ("+ idContainer + "," + affected +","+ refIpAdress + "," + remotePort+ ",'" + finalHostname + "')");
+            stmt.execute("insert into " + ContainersTable + " (IDCONTAINER,AFFECTED,IPADRESS,USERID,REMOTEPORT,FINALHOSTNAME,PASSWORD) values ("+ idContainer + "," + affected +","+ refIpAdress + "," + UserId + "," + remotePort+ ",'" + finalHostname +"','"+password +"')");
             stmt.close();
         } catch (SQLException sqlExcept) {
             insert = "Container : " + sqlExcept.toString();
@@ -223,7 +250,7 @@ public class Database {
         return templates;
     }
     
-    public ArrayList<String> GetTemplatesCustom() {
+    public ArrayList<String> GetTemplatesCustom(String email) {
         ArrayList<String> templates = new ArrayList<String>();
         int i=0;
         
@@ -233,7 +260,7 @@ public class Database {
             // the SQL select command will provide a ResultSet containing the query results
             ResultSet results;
             // the SQL select command will provide a ResultSet containing the query results
-            results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable);
+            results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable+" WHERE( "+TemplatesTable+".USERID = ( SELECT ID FROM "+ Nomtable+" WHERE "+Nomtable+".EMAIL = '"+email+"'))");
             System.out.println("Results==========" + results);
             
             while(results.next()) {
@@ -354,7 +381,7 @@ public class Database {
         return id;
     }
     
-    public ArrayList<TemplateVM> GetTemplatesVM() {
+    public ArrayList<TemplateVM> GetTemplatesVM(String email) {
         ArrayList<TemplateVM> templates = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesDefault = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesCustom = new ArrayList<TemplateVM>();
@@ -393,8 +420,8 @@ public class Database {
             }
             
             /**************Select all the custom templates*******************/
-            results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable);
-            System.out.println("Results==========" + results);
+            results = stmt.executeQuery("SELECT  *  FROM "+TemplatesTable+" WHERE( "+TemplatesTable+".USERID = ( SELECT ID FROM "+ Nomtable+" WHERE "+Nomtable+".EMAIL = '"+email+"'))");
+            System.out.println("Results custom Templates==========" + results);
             
             while(results.next()) {
                 
@@ -428,7 +455,7 @@ public class Database {
             stmt.close();
         } catch (SQLException sqlExcept) {
             String error = sqlExcept.toString();
-            System.out.println("***************" + error + "---");
+            System.out.println("***************Error" + error + "---");
         }
         
         return templates;
@@ -546,14 +573,14 @@ public class Database {
         return id;
     }
     
-    public synchronized String AddCustomTemplate(int refContainer,int version,String name) {//a container is created with template or templedefault, 0 == null
+    public synchronized String AddCustomTemplate(int refContainer,int version,String name,int idUser) {//a container is created with template or templedefault, 0 == null
         
         String insert = "Insertion";
         
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-            stmt.execute("insert into " + TemplatesTable + " (NAME,REFCONTAINER,VERSION) values ('"+ name + "',"+refContainer+","+ version + ")");
+            stmt.execute("insert into " + TemplatesTable + " (NAME,REFCONTAINER,VERSION,USERID) values ('"+ name + "',"+refContainer+","+ version +","+ idUser + ")");
             
             stmt.close();
         } catch (SQLException sqlExcept) {

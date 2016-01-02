@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import static Controller.AuthentificationServlet.ATT_SESSION_USER;
 import Model.Database;
 import Model.TemplateVM;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,7 +36,11 @@ public class ListTemplates extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<TemplateVM> templates =data.GetTemplatesVM();
+        /* Récupération de la session depuis la requête */
+        HttpSession webSession = request.getSession();
+        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        System.out.println("***************USER : "+user);
+        ArrayList<TemplateVM> templates =data.GetTemplatesVM(user);
         int virg = 0;
         String tempVm = "";
         for (TemplateVM temp:templates )
@@ -82,7 +88,11 @@ public class ListTemplates extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        ArrayList<TemplateVM> templates =data.GetTemplatesVM();
+        /* Récupération de la session depuis la requête */
+        HttpSession webSession = request.getSession();
+        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        System.out.println("***************USER : "+user);
+        ArrayList<TemplateVM> templates =data.GetTemplatesVM(user);
         int virg = 0;
         String tempVm = "";
         for (TemplateVM temp:templates )

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import static Controller.AuthentificationServlet.ATT_SESSION_USER;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -25,6 +26,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 
 /**
@@ -87,7 +89,11 @@ public class FormCreatContenaire extends HttpServlet {
         ArrayList<String> templatesCustom = new ArrayList<String>();
         
         templatesDefault = data.GetTemplatesDefault();
-        templatesCustom = data.GetTemplatesCustom();
+        /* Récupération de la session depuis la requête */
+        HttpSession webSession = request.getSession();
+        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        System.out.println("***************USER : "+user);
+        templatesCustom = data.GetTemplatesCustom(user);
         request.setAttribute("tempDefault",templatesDefault);
         request.setAttribute("tempCustom", templatesCustom);
         request.getRequestDispatcher("vmProfCreation.jsp").forward(request, response);
@@ -148,7 +154,12 @@ public class FormCreatContenaire extends HttpServlet {
        if(resul)
        {
            data.UpdateIpadress(adress, true);
-           data.AddContainer(vmid, adress,remotePort,finalHostname);
+           /* Récupération de la session depuis la requête */
+           HttpSession webSession = request.getSession();
+           String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+           System.out.println("***************USER : "+user);
+           int idUser = data.GetIdByEmail(user);
+           data.AddContainer(vmid, adress,idUser,remotePort,finalHostname,PASSWORD_CONTAINER);
            int idC = data.GetContainerIdByVmId(vmid);
            data.AddContainerTemplate(idC, entTempCus, entTempDef);
            
