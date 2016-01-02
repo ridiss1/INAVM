@@ -72,6 +72,14 @@
                                 <input class="form-control" name="re_password" type="password" >
                             </div>
                             <div class="form-group">
+                                <label>Group Name</label>
+                                <input class="form-control" name="re_password" type="password" >
+                            </div>
+                            <div class="form-group">
+                                <label>Group Password</label>
+                                <input class="form-control" name="re_password" type="password" >
+                            </div>
+                            <div class="form-group">
                                 <label>Status</label>
                                 <div class="radio">
                                     <label>
