@@ -461,7 +461,7 @@ public class Database {
         return templates;
     }
     
-    public ArrayList<String> GetAllFinalHostnames() {
+    public ArrayList<String> GetAllFinalHostnames(String email) {
         ArrayList<String> finalHostnames = new ArrayList<String>();
         int i=0;
         
@@ -471,7 +471,7 @@ public class Database {
             // the SQL select command will provide a ResultSet containing the query results
             ResultSet results;
             // the SQL select command will provide a ResultSet containing the query results
-            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable);
+            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+" WHERE( "+ContainersTable+".USERID = ( SELECT ID FROM "+ Nomtable+" WHERE "+Nomtable+".EMAIL = '"+email+"'))");
             System.out.println("Results==========" + results);
             
             while(results.next()) {

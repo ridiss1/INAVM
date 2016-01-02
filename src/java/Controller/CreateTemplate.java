@@ -72,8 +72,12 @@ public class CreateTemplate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<String> finalHostnames = new ArrayList<String>();        
-        finalHostnames = data.GetAllFinalHostnames();
+        ArrayList<String> finalHostnames = new ArrayList<String>(); 
+        /* Récupération de la session depuis la requête */
+        HttpSession webSession = request.getSession();
+        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        System.out.println("***************USER : "+user);
+        finalHostnames = data.GetAllFinalHostnames(user);
         request.setAttribute("containers", finalHostnames);
         request.getRequestDispatcher("createTemplate.jsp").forward(request, response);
     }
