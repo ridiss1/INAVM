@@ -990,7 +990,7 @@ h6,
 .h6 {
   font-family: inherit;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 0.9;
   color: inherit;
 }
 h1 small,
@@ -1377,8 +1377,8 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 5%;
+  padding-left: 5%;
   margin-right: auto;
   margin-left: auto;
 }
@@ -1394,7 +1394,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 100%;
   }
 }
 .container-fluid {
@@ -2057,6 +2057,7 @@ th {
 }
 .table {
   width: 100%;
+  
   max-width: 100%;
   margin-bottom: 20px;
 }
@@ -2883,7 +2884,7 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #fff;
-  background-color: #5cb85c;
+  background-color: #0489b1;
   border-color: #4cae4c;
 }
 .btn-success:hover,
@@ -2893,7 +2894,7 @@ fieldset[disabled] .btn-primary.active {
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
   color: #fff;
-  background-color: #449d44;
+  background-color: #5cb85c;
   border-color: #398439;
 }
 .btn-success:active,
@@ -3932,7 +3933,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   height: 50px;
-  padding: 15px 15px;
+  /*padding: 15px 15px;*/
   font-size: 18px;
   line-height: 20px;
 }

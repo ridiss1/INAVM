@@ -39,7 +39,7 @@ public class Iaas {
     final  private String address="149.202.70.57"; 
     private String user="root";
     //XEJ4UyPtmY5N
-    private String password = "***************";
+    private String password = "XEJ4UyPtmY5N";
     private String hostname="root";
     private String pve_realm = "pam";
     
@@ -98,19 +98,33 @@ public class Iaas {
      */
     public String deleteContainer (int vmid){
         
-        String result=null;
+        String result="NOK";
         
+        try {        
+            Container container = this.getContainer(vmid);
+            if ( "running".equals(container.getStatus())){
+                pve.shutdownOpenvz("ns3021937", vmid);
+            }
+            pve.deleteOpenvz("ns3021937", vmid);
+            result ="OK";
+        } catch (LoginException | JSONException | IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return result;
     }
     
     /**
      * Mettre à jour les caractériqtiques d'un container en l'occurence : 
      * cpus , diskspace , memory(RAM)
-     * @param lecontainer 
+     * @param container 
      */
-    public void UpdateContainer(){
+    public void UpdateContainer(Container container){
         
-       
+        try {
+            pve.updateOpenvz("ns3021937", container);
+        } catch (JSONException | LoginException | IOException ex) {
+            Logger.getLogger(Iaas.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
     
     /**

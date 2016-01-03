@@ -45,7 +45,9 @@ public class AuthentificationServlet extends HttpServlet {
         String password = request.getParameter(ATTR_PASWWORD).trim();
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
-        session.setAttribute(ATT_SESSION_USER, login);
+        String[] log=login.split("@");
+        
+        session.setAttribute(ATT_SESSION_USER, log[0]);
         result = bd.verifID(login, password);
         if(result.equals("voila")){
         nextPage = "/accueilProf.jsp";

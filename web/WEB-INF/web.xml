@@ -9,6 +9,10 @@
         <servlet-class>Controller.AuthentificationServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>VmProfUpdateServlet</servlet-name>
+        <servlet-class>Controller.VmProfUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ListTemplates</servlet-name>
         <servlet-class>Controller.ListTemplates</servlet-class>
     </servlet>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>FormCreatContenaire</servlet-name>
         <url-pattern>/FormCreatContenaire</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VmProfUpdateServlet</servlet-name>
+        <url-pattern>/vmProfModify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AuthentificationServlet</servlet-name>

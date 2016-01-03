@@ -381,7 +381,44 @@ public class Database {
         return id;
     }
     
-    public ArrayList<TemplateVM> GetTemplatesVM(String email) {
+    //Retourne les infos de la table container.
+    public ArrayList<Vms> GetVMs  (){
+        ArrayList<Vms> vms= new ArrayList<Vms>();
+        int i=0;
+    
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+            // the SQL select command will provide a ResultSet containing the query results
+            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable);
+            System.out.println("Results==========" + results);
+    
+            while(results.next()) {
+                Vms NewVm= new Vms(results.getInt(results.findColumn("IDCONTAINER")));
+                vms.add(NewVm);
+                System.out.println("***************Id Container "+(i+1)+": "+NewVm.getVMid());
+                i++;
+            }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+    
+    
+        return vms;
+        
+    }
+    
+    
+   
+        
+        
+       
+  public ArrayList<TemplateVM> GetTemplatesVM(String email) {
         ArrayList<TemplateVM> templates = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesDefault = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesCustom = new ArrayList<TemplateVM>();

@@ -55,7 +55,7 @@
                     <ul>
                         <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
-                        <li><a class="active" href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
+                        <li><a class="active" href="${pageContext.request.contextPath}/InfoVms" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
                         <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
    
@@ -77,7 +77,7 @@
                     <br/>
                     <br/>
                     <ul class="nav nav-tabs">
-                        <li class="active" ><a href="vmProf.jsp">VMs list</a></li>
+                        <li class="active" ><a href="${pageContext.request.contextPath}/InfoVms">VMs list</a></li>
                         <li ><a href="${pageContext.request.contextPath}/FormCreatContenaire">Creation</a></li>                  
                     </ul>
                 </div>
@@ -102,7 +102,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                           <c:forEach items="${ListeContainer}" var="Container">                             
+                                   
+                                        <tr>
+                                            <td>${Container.vmid}</td>
+                                            <td>${Container.hostname}</td>
+                                            <td>${Container.ip_address}</td>
+                                            <td>${Container.status}</td>
+                                            <td>
+  
+                                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/vmProfModify?actionChange=${Container.vmid}" role="button">Modify</a>
 
+                                            </td>
+                                       </tr>
+                                   
+
+                                </c:forEach>
+                            </tbody>
                     </table>                                                      
                 </div>
                 
