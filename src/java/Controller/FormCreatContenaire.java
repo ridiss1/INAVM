@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import static Controller.AuthentificationServlet.ATT_SESSION_USER;
+import static Controller.AuthentificationServlet.ATT_SESSION_EMAIL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -91,7 +91,7 @@ public class FormCreatContenaire extends HttpServlet {
         templatesDefault = data.GetTemplatesDefault();
         /* Récupération de la session depuis la requête */
         HttpSession webSession = request.getSession();
-        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        String user = (String) webSession.getAttribute(ATT_SESSION_EMAIL);
         System.out.println("***************USER : "+user);
         templatesCustom = data.GetTemplatesCustom(user);
         request.setAttribute("tempDefault",templatesDefault);
@@ -156,7 +156,7 @@ public class FormCreatContenaire extends HttpServlet {
            data.UpdateIpadress(adress, true);
            /* Récupération de la session depuis la requête */
            HttpSession webSession = request.getSession();
-           String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+           String user = (String) webSession.getAttribute(ATT_SESSION_EMAIL);
            System.out.println("***************USER : "+user);
            int idUser = data.GetIdByEmail(user);
            data.AddContainer(vmid, adress,idUser,remotePort,finalHostname,PASSWORD_CONTAINER);
@@ -194,36 +194,12 @@ public class FormCreatContenaire extends HttpServlet {
             System.out.println("**Error configuration NAT !!**");
            }
            
-           response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet FormCreatContenaire</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet FormCreatContenaire at " + request.getContextPath() + "</h1>");
-                out.println("<h1>Container Created !!!</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+           request.setAttribute("VMHostname", finalHostname);
+           request.setAttribute("VMPassword", PASSWORD_CONTAINER);
+           this.getServletContext().getRequestDispatcher("/succesCreationContainer.jsp").forward(request, response);
        }
        else{
-          response.setContentType("text/html;charset=UTF-8");
-          try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FormCreatContenaire</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FormCreatContenaire at " + request.getContextPath() + "</h1>");
-            out.println("<h1>ERROR Container not created !!!</h1>");
-            out.println("</body>");
-            out.println("</html>");
-          }      
+          this.getServletContext().getRequestDispatcher("/errorCreationContainer.jsp").forward(request, response);
         }
 
     }

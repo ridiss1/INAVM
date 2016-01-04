@@ -77,7 +77,7 @@
                     <br/>
                     <br/>
                     <ul class="nav nav-tabs">
-                        <li ><a href="${pageContext.request.contextPath}/InfoVms">List VMs</a></li>
+                        <li ><a href="${pageContext.request.contextPath}/InfoVms">VMs list</a></li>
                         <li class="active"><a href="${pageContext.request.contextPath}/FormCreatContenaire">Creation</a></li>                  
                     </ul>
                 </div>

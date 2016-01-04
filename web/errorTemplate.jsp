@@ -53,9 +53,9 @@
                     <ul>
                         <li><a href="accueilProf.jsp" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 
-                        <li><a href="vmProf.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/InfoVms" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Virtual Machine</span></a></li>
                         
-                        <li><a class="active" href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Templates</span></a></li>
+                        <li><a class="active" href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
 
                         <li><a href="connexion" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
@@ -72,7 +72,7 @@
                 <h1> &nbsp; My Template </h1>
             </div>
             
-            <p style="color:red">An error occurred during the creation of the template. Verify that your VM is running then try again. </p>
+            <p style="color:red"> <i class="fa fa-exclamation-triangle"></i> An error occurred during the creation of the template. Verify that your VM is running then try again. </p>
                         
             <div align="center">
               <a href="${pageContext.request.contextPath}/CreateTemplate"><button type="button" class="btn btn-primary btn-lg">Create a template</button></a>              

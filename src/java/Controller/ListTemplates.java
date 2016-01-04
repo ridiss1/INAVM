@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import static Controller.AuthentificationServlet.ATT_SESSION_USER;
+import static Controller.AuthentificationServlet.ATT_SESSION_EMAIL;
 import Model.Database;
 import Model.TemplateVM;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class ListTemplates extends HttpServlet {
             throws ServletException, IOException {
         /* Récupération de la session depuis la requête */
         HttpSession webSession = request.getSession();
-        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        String user = (String) webSession.getAttribute(ATT_SESSION_EMAIL);
         System.out.println("***************USER : "+user);
         ArrayList<TemplateVM> templates =data.GetTemplatesVM(user);
         int virg = 0;
@@ -90,7 +90,7 @@ public class ListTemplates extends HttpServlet {
         //processRequest(request, response);
         /* Récupération de la session depuis la requête */
         HttpSession webSession = request.getSession();
-        String user = (String) webSession.getAttribute(ATT_SESSION_USER);
+        String user = (String) webSession.getAttribute(ATT_SESSION_EMAIL);
         System.out.println("***************USER : "+user);
         ArrayList<TemplateVM> templates =data.GetTemplatesVM(user);
         int virg = 0;

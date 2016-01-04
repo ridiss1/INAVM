@@ -26,6 +26,7 @@ public class AuthentificationServlet extends HttpServlet {
     private static final String ATTR_LOGIN = "login";
     private static final String ATTR_PASWWORD = "password";
     public static final String ATT_SESSION_USER = "sessionUser";
+    public static final String ATT_SESSION_EMAIL = "sessionEmail";
     private String nextPage;
     Database bd = new Database();
                                     
@@ -48,6 +49,7 @@ public class AuthentificationServlet extends HttpServlet {
         String[] log=login.split("@");
         
         session.setAttribute(ATT_SESSION_USER, log[0]);
+        session.setAttribute(ATT_SESSION_EMAIL, login);
         result = bd.verifID(login, password);
         if(result.equals("voila")){
         nextPage = "/accueilProf.jsp";

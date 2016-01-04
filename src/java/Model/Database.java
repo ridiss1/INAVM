@@ -445,7 +445,7 @@ public class Database {
             }
             /************select all the vms of the default templates*************/
             for (TemplateVM temp : templatesDefault ) {
-                results = stmt.executeQuery("SELECT * FROM "+ContainersTable+" WHERE "+ContainersTable+".ID IN (SELECT "+ContTempTable+".CONTAINER FROM "+ContTempTable+" WHERE "+ContTempTable+".TEMPLATEDEFAULT ="+temp.getIdTemplate()+")");
+                results = stmt.executeQuery("SELECT * FROM "+ContainersTable+" WHERE (("+ContainersTable+".ID IN (SELECT "+ContTempTable+".CONTAINER FROM "+ContTempTable+" WHERE "+ContTempTable+".TEMPLATEDEFAULT ="+temp.getIdTemplate()+")) AND ("+ContainersTable+".USERID IN (SELECT "+Nomtable+".ID FROM "+Nomtable+" WHERE "+Nomtable+".EMAIL = '"+email+"')))");
                 while(results.next()) {
                     
                     String vmName = results.getString(results.findColumn("FINALHOSTNAME"));
