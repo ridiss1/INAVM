@@ -292,7 +292,7 @@ public class Database {
             }
             else
             {//container is created with template custom
-                stmt.execute("insert into " + ContTempTable + " (CONTAINER,TEMPLATE,TEMPLATEDEFAULT) values ("+ idContainer + ","+templateDefault+",null)");
+                stmt.execute("insert into " + ContTempTable + " (CONTAINER,TEMPLATE,TEMPLATEDEFAULT) values ("+ idContainer + ","+template+",null)");
             }
             
             stmt.close();

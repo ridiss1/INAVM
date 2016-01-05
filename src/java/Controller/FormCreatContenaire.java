@@ -135,12 +135,14 @@ public class FormCreatContenaire extends HttpServlet {
            System.out.println("TEMPLATEDEFAULT");
            resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATEDEFAULT,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
            entTempDef = data.GetTempDefIdByOSTemp(TEMPLATEDEFAULT);
+           System.out.println("***** entTEMPDEF : "+entTempDef);
        }
        else if (TEMPLATEDEFAULT.equalsIgnoreCase("null") && TEMPLATE.equalsIgnoreCase("null") == false)
        {
            System.out.println("TEMPLATECUSTOM");
            resul= iaas.creerContainer(Integer.toString(vmid),adress,CPU_COUNT,TEMPLATE,DISK_SIZE,MEMORY_SIZE,finalHostname,PASSWORD_CONTAINER);
            entTempCus = data.GetTempCusIdByName(TEMPLATE);
+           System.out.println("***** entTEMPCustom : "+entTempCus);
        }
        else
        {
@@ -164,13 +166,13 @@ public class FormCreatContenaire extends HttpServlet {
            data.AddContainerTemplate(idC, entTempCus, entTempDef);
            
            /********Add the iptables NAT rule******/
-           int localPort = 22; //Port à lancer sur le VNC ??
+           int localPort = 8081; //Port à lancer sur le VNC ??
            String myCommand = "iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport "+ remotePort +" -j DNAT --to "+adress+":"+localPort;
            JSch jsch=new JSch();
            Session session;
            try {
                 session = jsch.getSession("root", "149.202.70.57", 22);
-                session.setPassword("***************"); //Set the true Password
+                session.setPassword("***"); //Set the true Password
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 session.setConfig(config);
@@ -196,6 +198,7 @@ public class FormCreatContenaire extends HttpServlet {
            
            request.setAttribute("VMHostname", finalHostname);
            request.setAttribute("VMPassword", PASSWORD_CONTAINER);
+           request.setAttribute("RemotePort", remotePort);
            this.getServletContext().getRequestDispatcher("/succesCreationContainer.jsp").forward(request, response);
        }
        else{

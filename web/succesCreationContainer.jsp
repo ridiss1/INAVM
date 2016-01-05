@@ -71,7 +71,8 @@
             <div align="center">
                 <p style="color:green"> <i class="fa fa-check"></i> Your VM has been created succesfully !!</p>
                 <p> The final hostname of the VM : ${VMHostname} </p>
-                <p> The password of the VM : ${VMPassword} </p> 
+                <p> The password of the VM : ${VMPassword} </p>
+                <p> The port of the VM : ${RemotePort} </p> 
                 <p style="font-size:15px;"> <i style="color:orange" class="fa fa-exclamation-triangle"></i> <i>Please keep these credentials in safe place.</i></p>
             </div>
                        
