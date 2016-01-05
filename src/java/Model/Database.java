@@ -627,4 +627,30 @@ public class Database {
         return insert;
     }
     
+    public String GetIpAdressByVMId(int vmid) {
+        String ip= "";
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+            // the SQL select command will provide a ResultSet containing the query results
+            results = stmt.executeQuery("SELECT  *  FROM "+IPadressesTable+" WHERE( "+IPadressesTable+".ID = ( SELECT IPADRESS FROM "+ContainersTable+" WHERE "+ContainersTable+".IDCONTAINER = "+vmid+"))");
+            System.out.println("Results==========" + results);
+            
+            if (results.next()) {
+                ip = results.getString(results.findColumn("ADRESS"));
+                System.out.println("***************Ip Adresse after create Template : " + ip + "---");
+            }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("*************** get ip adress after create Template : " + error + "---");
+        }
+        
+        return ip;
+    }
+    
 }

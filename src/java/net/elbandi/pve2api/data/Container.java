@@ -118,7 +118,7 @@ public class Container {
     
     public Pve2Api.PveParams getUpdateParams() {
 		return new Pve2Api.PveParams("cpus", cpus)
-                                .Add("disk", disk).Add("memory", memory);
+                                .Add("disk", disk).Add("memory", memory).Add("ip_address",ip_address);
                                 
     }
     

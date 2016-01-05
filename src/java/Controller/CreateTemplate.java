@@ -6,6 +6,7 @@
 package Controller;
 
 import static Controller.AuthentificationServlet.ATT_SESSION_EMAIL;
+import IAAS.Iaas;
 import Model.Database;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -19,12 +20,15 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.security.auth.login.LoginException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.elbandi.pve2api.data.Container;
+import org.json.JSONException;
 
 /**
  *
@@ -107,7 +111,7 @@ public class CreateTemplate extends HttpServlet {
         Session session;
         try {
             session = jsch.getSession("root", "149.202.70.57", 22);
-            session.setPassword("****"); //Set the true Password
+            session.setPassword("**********"); //Set the true Password
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
@@ -142,6 +146,25 @@ public class CreateTemplate extends HttpServlet {
            int idUser = data.GetIdByEmail(user);
             String insert = data.AddCustomTemplate(idCont, version, name,idUser);
             System.out.println(insert);
+            
+            /*Remise de l'adresse IP*/
+            Iaas iaas;
+            try {
+                iaas = new Iaas();
+                Container cont = iaas.getContainer(vmId);
+                cont.setVmid(Integer.toString(vmId));
+                System.out.println("after create Template id VM : "+vmId);
+                System.out.println("after create Template getIdcont : "+cont.getVmid());
+                String adress = data.GetIpAdressByVMId(vmId);
+                cont.setIp_address(adress);
+                iaas.UpdateContainer(cont);
+                System.out.println("after create Template adress cont : "+cont.getIp_address());
+            } catch (JSONException ex) {
+                Logger.getLogger(CreateTemplate.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LoginException ex) {
+                Logger.getLogger(CreateTemplate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             RequestDispatcher rd = request.getRequestDispatcher("ListTemplates");
             rd.forward(request,response);
         }
