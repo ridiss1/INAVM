@@ -174,7 +174,7 @@ public class FormCreatContenaire extends HttpServlet {
                 session = jsch.getSession("root", "149.202.70.57", 22);
 
                 session.setPassword("********"); //Set the true Password
- Properties config = new Properties();
+                Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 session.setConfig(config);
                 session.connect();
