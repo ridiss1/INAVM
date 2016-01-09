@@ -166,7 +166,19 @@
                             </tbody>
                         
                     </table>
-                                        
+                    
+                    <form method="post" action="startContServlet">
+                        
+                        <input type="hidden" name="VMid" value="${InfoContainer.vmid}">
+                        <center> <input type="submit" name="actionStart" value="Start"></center>                    
+                    </form>
+                    
+                    <br>                                        
+                    
+                    <center> <a href="${InfoContainer.console}" target="_blank" ><button type="button" class="btn btn-primary btn-lg">Get the console</button></a> </center>
+                        
+                    <br>
+                    
                     <form method="post" action="VmProfUpdateServlet">
                         
                         <input type="hidden" name="VMid" value="${InfoContainer.vmid}">

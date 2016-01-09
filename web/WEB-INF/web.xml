@@ -24,6 +24,10 @@
         <servlet-name>SaveInfoServlet</servlet-name>
         <servlet-class>Controller.SaveInfoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>startContServlet</servlet-name>
+        <servlet-class>Controller.startContServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FormCreatContenaire</servlet-name>
         <url-pattern>/FormCreatContenaire</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>SaveInfoServlet</servlet-name>
         <url-pattern>/SaveInfoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>startContServlet</servlet-name>
+        <url-pattern>/startContServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -141,6 +141,8 @@ public class InfoVms extends HttpServlet {
                 c.setDisk(Long.toString(disk));
                 long ram=Long.parseLong(c.getMemory())/(1024*1024);
                 c.setMemory(Long.toString(ram));
+                c.setConsole(ias.getConsole(Integer.parseInt(request.getParameter("VMid"))));
+                System.out.println("*********** AFFICHE LA CONSOLE DANS VUE VM PROF MODIFY :  " +c.getConsole());
                 request.setAttribute(ATTR_INFO_CONTAINER, c);
                 
                 this.getServletContext().getRequestDispatcher(VUE_VM_PROF_MODIFY).forward(request, response);
@@ -166,6 +168,7 @@ public class InfoVms extends HttpServlet {
                 request.setAttribute("InfoVM", request.getParameter("VMid"));
                 this.getServletContext().getRequestDispatcher(VUE_VM_PROF).forward(request, response);
             }
+            
         } catch (JSONException ex) {
             Logger.getLogger(InfoVms.class.getName()).log(Level.SEVERE, null, ex);
         } catch (LoginException ex) {

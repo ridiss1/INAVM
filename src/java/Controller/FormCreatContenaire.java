@@ -166,14 +166,14 @@ public class FormCreatContenaire extends HttpServlet {
            data.AddContainerTemplate(idC, entTempCus, entTempDef);
            
            /********Add the iptables NAT rule******/
-           int localPort = 8081; //Port à lancer sur le VNC ??
+           int localPort = 5900; //Port VNC : 5900-5999 
            String myCommand = "iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport "+ remotePort +" -j DNAT --to "+adress+":"+localPort;
            JSch jsch=new JSch();
            Session session;
            try {
                 session = jsch.getSession("root", "149.202.70.57", 22);
 
-                session.setPassword("********"); //Set the true Password
+                session.setPassword("***"); //Set the true Password
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 session.setConfig(config);

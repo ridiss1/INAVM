@@ -60,6 +60,8 @@ public class VmProfUpdateServlet extends HttpServlet {
            long ram=Long.parseLong(c.getMemory())/(1024*1024);
            c.setMemory(Long.toString(ram));
            //session.setAttribute(ATTR_INFO_CONTAINER, c);
+           c.setConsole(ias.getConsole(Integer.parseInt(request.getParameter("actionChange"))));
+           System.out.println("*********** AFFICHE LA CONSOLE DANS VUE VM PROF MODIFY :  " +c.getConsole());
            request.setAttribute(ATTR_INFO_CONTAINER, c);
            System.out.println("test=" + c.toString()); 
            this.getServletContext().getRequestDispatcher(VUE_VM_PROF_MODIFY).forward(request, response);
