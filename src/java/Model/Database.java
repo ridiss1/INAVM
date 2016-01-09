@@ -627,4 +627,23 @@ public class Database {
         return insert;
     }
     
+    public synchronized String addUser(String firstName, String lastName, String email, String password, String groupName, String groupPswd, String department) {
+        String r = "Insertion";
+        try {
+            // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
+
+            stmt.execute("insert into " + Nomtable + " (FirstName,LastName,Email,Password,GroupName,GroupPassword,Department) values (" + "'" + firstName + "','" + lastName + "','" + email + "'," + password + ",'" + groupName + "'," + groupPswd + ",'" + department + "')");
+            ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".FName='" + firstName + "') AND (" + Nomtable + ".Password='" + password + "')");
+//            //id = rese.findColumn("ID");
+//            rese.next(); //pour aller à la ligne du résultat
+//            setId(rese.getInt(rese.findColumn("ID")));
+//            System.out.println("ID=============== " + id);
+            stmt.close();
+        }catch (SQLException sqlExcept) {
+            r = "USERDB : " + sqlExcept.toString();
+        }
+        return r;
+    }
+        
 }
