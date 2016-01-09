@@ -49,35 +49,41 @@
                     <h3 class="panel-title">Please enter your details</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form  action="SaveInfoServlet" method="POST" role="form">
+                        
                         <fieldset>
                             <div class="form-group">
-                                <label>First Name</label>
+                                <label>First Name *</label>
                                 <input class="form-control" name="first_name" type="text" autofocus>
+                                <span class="erreur">${errors['fname']}</span>
                             </div>
                             <div class="form-group">
-                                <label>Last Name</label>
+                                <label>Last Name *</label>
                                 <input class="form-control" name="last_name" type="text" >
+                                <span class="erreur">${errors['lname']}</span>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Email *</label>
                                 <input class="form-control" name="email" type="email" >
+                                <span class="erreur">${errors['email']}</span>
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Password *</label>
                                 <input class="form-control" name="password" type="password" >
+                                <span class="erreur">${errors['pswd']}</span>
                             </div>
                             <div class="form-group">
-                                <label>Retype Password</label>
+                                <label>Retype Password *</label>
                                 <input class="form-control" name="re_password" type="password" >
+                                <span class="erreur">${errors['confpswd']}</span>
                             </div>
                             <div class="form-group">
-                                <label>Group Name</label>
-                                <input class="form-control" name="re_password" type="password" >
+                                <label>Group Name *</label>
+                                <input class="form-control" name="gpe_name" type="text" >
                             </div>
                             <div class="form-group">
-                                <label>Group Password</label>
-                                <input class="form-control" name="re_password" type="password" >
+                                <label>Group Password *</label>
+                                <input class="form-control" name="gpe_password" type="password" >
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
@@ -102,6 +108,8 @@
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <a href="index.jsp" class="btn btn-lg btn-success btn-block">Save</a>
+<!--                            <button id="submit" type="submit">Save</button>-->
+                            <p class="${empty errors ? 'succes' : 'error'}">${result}</p>
                         </fieldset>
                     </form>
                 </div>

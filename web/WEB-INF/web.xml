@@ -21,8 +21,8 @@
         <servlet-class>Controller.CreateTemplate</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>IaasServlet</servlet-name>
-        <servlet-class>Controller.IaasServlet</servlet-class>
+        <servlet-name>SaveInfoServlet</servlet-name>
+        <servlet-class>Controller.SaveInfoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FormCreatContenaire</servlet-name>
@@ -49,8 +49,8 @@
         <url-pattern>/CreateTemplate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>IaasServlet</servlet-name>
-        <url-pattern>/IaasServlet</url-pattern>
+        <servlet-name>SaveInfoServlet</servlet-name>
+        <url-pattern>/SaveInfoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
