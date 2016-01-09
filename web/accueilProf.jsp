@@ -53,6 +53,8 @@ Created on : Dec 13 2015, 11:03:59 AM
                         
                         <li><a href="${pageContext.request.contextPath}/ListTemplates" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Template</span></a></li>
 
+                        <li><a href="vmStats.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Statistics</span></a></li>
+                        
                         <li><a href="connexion.jsp" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
@@ -71,7 +73,7 @@ Created on : Dec 13 2015, 11:03:59 AM
                         <div align="center">
                             </br> </br> </br>
                                 
-                                <a  class="button scrolly">Welcome in the profesor's page</a>
+                                <a  class="button scrolly">Welcome on the profesor's page</a>
                         </div>
                     </header>
                 </div>
