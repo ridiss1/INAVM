@@ -179,7 +179,7 @@
                         
                     <br>
                     
-                    <form method="post" action="VmProfUpdateServlet">
+                    <form method="POST" action="InfoVms">
                         
                         <input type="hidden" name="VMid" value="${InfoContainer.vmid}">
                         <center> <input type="submit" name="actionDelete" value="SupprimerContainer"></center>                    

@@ -40,7 +40,7 @@ public class Iaas {
     private String user="root";
     //XEJ4UyPtmY5N
 
-    private String password = "*****";
+    private String password = "XEJ4UyPtmY5N";
 
     private String hostname="root";
     private String pve_realm = "pam";

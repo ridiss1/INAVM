@@ -671,5 +671,21 @@ public class Database {
         }
         return r;
     }
+    
+     public synchronized String SuppVM(int VMid) {
+        String r = "Suprrimé";
+        try {
+            // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
+           
+            stmt.execute("DELETE FROM " + ContainersTable + " WHERE (" + ContainersTable + ".IDCONTAINER=" + VMid + ")");
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+        System.out.println("supression==================" + r);
+        return r;
+    }
+
 
 }

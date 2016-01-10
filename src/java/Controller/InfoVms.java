@@ -49,7 +49,7 @@ public class InfoVms extends HttpServlet {
     private static final String ATTR_LISTE_TEMPLATE = "ListeTemplate";
     private static final String ATTR_LISTE_GROUPE = "ListeGroupe";
     private static final String ATTR_INFO_CONTAINER = "InfoContainer";
-
+    
     /**
      * **********************Listes des attribusts *************
      */
@@ -62,30 +62,30 @@ public class InfoVms extends HttpServlet {
     private static final String ATTR_PASSWORD = "passwordDefault";
     
     
-            protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException {
-                
-            }
-            
-            // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-            /**
-             * Handles the HTTP <code>GET</code> method.
-             *
-             * @param request servlet request
-             * @param response servlet response
-             * @throws ServletException if a servlet-specific error occurs
-             * @throws IOException if an I/O error occurs
-             */
-            @Override
-            protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException {
-                Database DB= new Database();
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Database DB= new Database();
         try {
             Iaas iass= new Iaas();
             List<Container> listContainer = new ArrayList ();
-            ArrayList<Vms> Vms= DB.GetVMs();;
+            ArrayList<Vms> Vms= DB.GetVMs();
             
-//
+            
             for(Vms vmt : Vms){
                 Container c = iass.getContainer(vmt.getVMid());
                 System.out.println("Container " + c.toString());
@@ -101,23 +101,24 @@ public class InfoVms extends HttpServlet {
         }
         
         this.getServletContext().getRequestDispatcher(VUE_VM_PROF).forward(request, response);
-            }
-            
-            /**
-             * Handles the HTTP <code>POST</code> method.
-             *
-             * @param request servlet request
-             * @param response servlet response
-             * @throws ServletException if a servlet-specific error occurs
-             * @throws IOException if an I/O error occurs
-             */
-            @Override
-            protected void doPost(HttpServletRequest request, HttpServletResponse response)
-                    throws ServletException, IOException {
+    }
+    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             Iaas ias = new Iaas();
             HttpSession session = request.getSession();
-           // User prof = (User) session.getAttribute("sessionUser");
+            Database DB= new Database();
+            
             
             
             //Mettre à jour les paramètres du container
@@ -133,7 +134,6 @@ public class InfoVms extends HttpServlet {
                 System.out.println("UPDATE OK pour VM " + request.getParameter("VMid"));
                 resultat= true;
                 
-                //session.setAttribute("demandUpdate", request.getParameter("actionUpdate"));
                 request.setAttribute("InfoUpdate", resultat);
                 c = ias.getContainer(Integer.parseInt(request.getParameter("VMid")));
                 c.setVmid(request.getParameter("VMid"));
@@ -153,11 +153,15 @@ public class InfoVms extends HttpServlet {
                 request.setAttribute("RequestDelete", true);
                 String result = ias.deleteContainer(Integer.parseInt(request.getParameter("VMid")));
                 System.out.println("result==" + result);
-//     Supression de la base de donnée à faire
-               
-                if (result.equals("OK")) {
+                //Supression de la base de donnée à faire
+               String sup= DB.SuppVM(Integer.parseInt(request.getParameter("VMid")));
+                
+                if (result.equals("OK")&&sup.equals("Suprrimé")) {
                     
                     System.out.println("DELETE OK pour VM " + request.getParameter("VMid"));
+                    request.setAttribute("InfoDelete", result);
+                request.setAttribute("InfoVM", request.getParameter("VMid"));
+                this.getServletContext().getRequestDispatcher("/successupp.jsp").forward(request, response);
                 } else {
                     
                     
@@ -175,16 +179,16 @@ public class InfoVms extends HttpServlet {
             Logger.getLogger(InfoVms.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-            
-            
-            /**
-             * Returns a short description of the servlet.
-             *
-             * @return a String containing servlet description
-             */
-            @Override
-            public String getServletInfo() {
-                return "Short description";
-            }// </editor-fold>
-            
+    
+    
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+    
 }
