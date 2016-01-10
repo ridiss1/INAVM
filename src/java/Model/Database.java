@@ -28,6 +28,7 @@ public class Database {
     private final String TemplatesTable = "TEMPLATES";
     private final String ContTempTable = "CONTAINERTEMPLATE";
     private final String Nomtable="UserDB";
+  
     //Constructor
     public Database(){
         createConnection();
@@ -46,7 +47,7 @@ public class Database {
     // Verifie si on existe dans la DB
     public String verifID(String Email, String pass) {
         String r = "";
-        String type; 
+        String type;
         try {
             // creates a SQL Statement object in order to execute the SQL select command
             stmt = conn.createStatement();
@@ -54,6 +55,37 @@ public class Database {
             // for instance the number of columns, their labels, etc.
             try ( // the SQL select command will provide a ResultSet containing the query results
                     ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + Email + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
+                // the ResultSetMetaData object will provide information about the columns
+                // for instance the number of columns, their labels, etc.
+                ResultSetMetaData rsmd = results.getMetaData();
+                System.out.println("le res"+results);
+                int ID = -5;
+                while (results.next()) {
+                    ID = results.getInt(results.findColumn("ID"));
+                    System.out.println("le id="+ID);
+                }
+                if (ID != -5) {
+                    r = "voila";
+                }
+            }
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+        System.out.println("le r "+r);
+        return r;
+    }
+    // Verifie si on existe dans la DB
+    public String verifIDgp(String NomGp, String pass) {
+        String r = "";
+        String type;
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            try ( // the SQL select command will provide a ResultSet containing the query results
+                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".GroupName='" + NomGp + "') AND (" + Nomtable + ".GroupPswd='" + pass + "')")) {
                 // the ResultSetMetaData object will provide information about the columns
                 // for instance the number of columns, their labels, etc.
                 ResultSetMetaData rsmd = results.getMetaData();
@@ -381,20 +413,37 @@ public class Database {
         return id;
     }
     
-    //Retourne les infos de la table container.
-    public ArrayList<Vms> GetVMs  (){
+    //Retourne la liste des VM par prof .
+    public ArrayList<Vms> GetVMs  (String user){
         ArrayList<Vms> vms= new ArrayList<Vms>();
         int i=0;
-    
+        int id=0;
         try {
             // creates a SQL Statement object in order to execute the SQL select command
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
             ResultSet results;
+            
             // the SQL select command will provide a ResultSet containing the query results
-            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable);
+            ResultSet results1 = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + user +  "')");
+            {
+                // the ResultSetMetaData object will provide information about the columns
+                // for instance the number of columns, their labels, etc.
+                ResultSetMetaData rsmd = results1.getMetaData();
+                System.out.println("le res"+results1);
+                int ID = -5;
+                while (results1.next()) {
+                    ID = results1.getInt(results1.findColumn("ID"));
+                    System.out.println("le id="+ID);
+                }
+                if (ID != -5) {
+                    id = ID;
+                }
+            }
+            // the SQL select command will provide a ResultSet containing the query results
+            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+ " WHERE (" + ContainersTable + ".UserID=" + id +  ")");
             System.out.println("Results==========" + results);
-    
+            
             while(results.next()) {
                 Vms NewVm= new Vms(results.getInt(results.findColumn("IDCONTAINER")));
                 vms.add(NewVm);
@@ -407,18 +456,67 @@ public class Database {
             String error = sqlExcept.toString();
             System.out.println("***************" + error + "---");
         }
-    
-    
+        
+        
         return vms;
         
     }
     
+    //Retourne les les vms pour les étudiants.
+    public Vms GetVMsbygroup  (String user,int NbVm){
+        ArrayList<Vms> vms= new ArrayList<Vms>();
+        int i=0;
+        int id=0;
+        
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results;
+            
+            // the SQL select command will provide a ResultSet containing the query results
+            ResultSet results1 = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".GroupName='" + user +  "')");
+            {
+                // the ResultSetMetaData object will provide information about the columns
+                // for instance the number of columns, their labels, etc.
+                ResultSetMetaData rsmd = results1.getMetaData();
+                System.out.println("le res"+results1);
+                int ID = -5;
+                while (results1.next()) {
+                    ID = results1.getInt(results1.findColumn("ID"));
+                    System.out.println("le id="+ID);
+                }
+                if (ID != -5) {
+                    id = ID;
+                }
+            }
+            // the SQL select command will provide a ResultSet containing the query results
+            results = stmt.executeQuery("SELECT  *  FROM "+ContainersTable+ " WHERE (" + ContainersTable + ".UserID=" + id +  ")");
+            System.out.println("Results==========" + results);
+            
+            while(results.next()) {
+                Vms NewVm= new Vms(results.getInt(results.findColumn("IDCONTAINER")));
+                vms.add(NewVm);
+                System.out.println("***************Id Container "+(i+1)+": "+NewVm.getVMid());
+                i++;
+            }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            String error = sqlExcept.toString();
+            System.out.println("***************" + error + "---");
+        }
+        
+        
+        return vms.get(NbVm);
+        
+    }
     
-   
-        
-        
-       
-  public ArrayList<TemplateVM> GetTemplatesVM(String email) {
+    
+    
+    
+    
+    public ArrayList<TemplateVM> GetTemplatesVM(String email) {
         ArrayList<TemplateVM> templates = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesDefault = new ArrayList<TemplateVM>();
         ArrayList<TemplateVM> templatesCustom = new ArrayList<TemplateVM>();
@@ -658,7 +756,7 @@ public class Database {
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-
+            
             stmt.execute("insert into " + Nomtable + " (FirstName,LastName,Email,Password,GroupName,GroupPassword,Department) values (" + "'" + firstName + "','" + lastName + "','" + email + "'," + password + ",'" + groupName + "'," + groupPswd + ",'" + department + "')");
             ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".FName='" + firstName + "') AND (" + Nomtable + ".Password='" + password + "')");
 //            //id = rese.findColumn("ID");
@@ -672,12 +770,12 @@ public class Database {
         return r;
     }
     
-     public synchronized String SuppVM(int VMid) {
+    public synchronized String SuppVM(int VMid) {
         String r = "Suprrimé";
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-           
+            
             stmt.execute("DELETE FROM " + ContainersTable + " WHERE (" + ContainersTable + ".IDCONTAINER=" + VMid + ")");
             stmt.close();
         } catch (SQLException sqlExcept) {
@@ -686,6 +784,6 @@ public class Database {
         System.out.println("supression==================" + r);
         return r;
     }
-
-
+    
+    
 }

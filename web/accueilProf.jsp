@@ -55,7 +55,7 @@ Created on : Dec 13 2015, 11:03:59 AM
 
                         <li><a href="vmStats.jsp" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Statistics</span></a></li>
                         
-                        <li><a href="connexion.jsp" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/DeconnxionServlet" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-power-off">Log out</span></a></li>
                     </ul>
                 </nav>
 

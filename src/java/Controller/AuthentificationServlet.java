@@ -29,6 +29,7 @@ public class AuthentificationServlet extends HttpServlet {
     public static final String ATT_SESSION_EMAIL = "sessionEmail";
     private String nextPage;
     Database bd = new Database();
+    int id=0;
                                     
                                     
                                    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +48,7 @@ public class AuthentificationServlet extends HttpServlet {
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
         String[] log=login.split("@");
-        
+        session.setAttribute("login", login);
         session.setAttribute(ATT_SESSION_USER, log[0]);
         session.setAttribute(ATT_SESSION_EMAIL, login);
         result = bd.verifID(login, password);
@@ -55,9 +56,19 @@ public class AuthentificationServlet extends HttpServlet {
         nextPage = "/accueilProf.jsp";
         this.getServletContext().getRequestDispatcher(nextPage).forward(request, response);
         }
+         
         else{
+               result = bd.verifIDgp(login, password);
+            if(result.equals("voila")){
+                session.setAttribute("Numer", id);
+        nextPage = "/accueilEtudiant.jsp";
+        id++;
+        this.getServletContext().getRequestDispatcher(nextPage).forward(request, response);
+        }
+            else{
             nextPage = "/index.jsp";
             this.getServletContext().getRequestDispatcher(nextPage).forward(request, response);
+            }
         }
         
 

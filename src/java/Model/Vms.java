@@ -5,6 +5,15 @@
  */
 package Model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.elbandi.pve2api.data.Container;
+
 /**
  *
  * @author Ridiss
@@ -85,6 +94,102 @@ public class Vms {
         this.Status = Status;
     }
 
-  
+      public void writeFile(List<Container> listContainer) {
+        PrintWriter ecrire;
+        String nomFichier = "/Users/Ridiss/NetBeansProjects/projet cloud/INAVM/web/js/graphe.js";
+
+
+        try {
+            ecrire = new PrintWriter(new BufferedWriter(new FileWriter(nomFichier)));
+
+            ecrire.println("window.onload = function(){");
+            for (Container container : listContainer) {
+                String data = "ramdata" + container.getVmid();
+                String ramUsage = container.getMem_usage();
+                String ramTotal = container.getMemory();
+                String memUsage = container.getDisk_usage();
+                String memTotal = container.getDisk();
+                String concav = "";
+                String cpu = container.getCpus();
+                String cpuUsage = container.getCpu_usage();
+                /**
+                 * ************RAM*****************************
+                 */
+                ecrire.println("var " + data + " = [");
+                ecrire.println("{");
+                ecrire.println("value: " + ramUsage + ",");
+                ecrire.println("color:'#c4e3f3',");
+                ecrire.println("highlight: '#FF5A5E',");              
+                ecrire.println("label: 'RAM Usage'");
+                ecrire.println("},");
+
+                ecrire.println("{");
+                ecrire.println("value: " + ramTotal + ",");
+                ecrire.println("color: 'darkblue',");
+                ecrire.println("highlight: '#5AD3D1',");             
+                ecrire.println("label: 'RAM Total'");
+                ecrire.println("}");
+                ecrire.println("];");
+
+                /**
+                 * ************CPU*****************************
+                 */
+                String data1 = "cpudata" + container.getVmid();
+
+                ecrire.println("var " + data1 + " = [");
+                ecrire.println("{");
+                ecrire.println("value: " + cpuUsage + ",");
+                ecrire.println("color:'#c4e3f3',");
+                ecrire.println("highlight: '#FF5A5E',");               
+                ecrire.println("label: 'CPU Usage'");
+                ecrire.println("},");
+
+                ecrire.println("{");
+                ecrire.println("value: " + cpu + ",");
+                ecrire.println("color: 'darkblue',");
+                ecrire.println("highlight: '#5AD3D1',");               
+                ecrire.println("label: 'CPU Total'");
+                ecrire.println("}");
+                ecrire.println("];");
+
+                /**
+                 * ************DISK*****************************
+                 */
+                String data2 = "memdata" + container.getVmid();
+                ecrire.println("var " + data2 + " = [");
+                ecrire.println("{");
+                ecrire.println("value: " + memUsage + ",");
+                ecrire.println("color:'#c4e3f3',");
+                ecrire.println("highlight: '#FF5A5E',"); 
+                ecrire.println("label: 'Disk Usage'");
+                ecrire.println("},");
+
+                ecrire.println("{");
+                ecrire.println("value: " + memTotal + ",");
+                ecrire.println("color: 'darkblue',");
+                ecrire.println("highlight: '#5AD3D1',");                         
+                ecrire.println("label: 'Disk Total'");
+                ecrire.println("}");
+                ecrire.println("];");
+
+                ecrire.println("var ctx = document.getElementById('" + data + "').getContext('2d');");
+                ecrire.println("window.myPie" + data + " = new Chart(ctx).Pie(" + data + ");");
+
+                ecrire.println("var ctx = document.getElementById('" + data1 + "').getContext('2d');");
+                ecrire.println("window.myPie" + data1 + " = new Chart(ctx).Pie(" + data1 + ");");
+
+                ecrire.println("var ctx = document.getElementById('" + data2 + "').getContext('2d');");
+                ecrire.println("window.myPie" + data2 + " = new Chart(ctx).Pie(" + data2 + ");");
+
+            }
+            ecrire.println("};");
+
+            ecrire.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Vms.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
         
 }

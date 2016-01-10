@@ -5,6 +5,7 @@
 */
 package Controller;
 
+import static Controller.AuthentificationServlet.ATT_SESSION_USER;
 import Model.Vms;
 import IAAS.Iaas;
 import java.io.IOException;
@@ -79,12 +80,16 @@ public class InfoVms extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
         Database DB= new Database();
+        
+        
         try {
+            String user= session.getAttribute("login").toString();
+            System.out.println("login "+user);
             Iaas iass= new Iaas();
             List<Container> listContainer = new ArrayList ();
-            ArrayList<Vms> Vms= DB.GetVMs();
-            
+            ArrayList<Vms> Vms= DB.GetVMs(user);
             
             for(Vms vmt : Vms){
                 Container c = iass.getContainer(vmt.getVMid());
