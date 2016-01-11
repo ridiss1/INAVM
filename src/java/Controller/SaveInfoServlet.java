@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 //@WebServlet(name = "SaveInfoServlet", urlPatterns = {"/SaveInfoServlet"})
 public class SaveInfoServlet extends HttpServlet {
 
-    public static final String VUE = "/web/registrationForm.jsp";
+    public static final String VUE = "/index.jsp";
     public static final String FIRST_NAME = "fname";
     public static final String LAST_NAME = "lname";
     public static final String EMAIL = "email";
@@ -91,99 +91,24 @@ public class SaveInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        System.out.println("Servlet SAveINfo");
 
         HttpSession session = request.getSession();
         Users user = new Users();
-//        private Database data = new Database();
-        String result;
-        Map <String, String> errors = new HashMap<String, String>();
 
         System.out.println("Form Create User");
-        /* Récupération des champs du formulaire. */
-        String fname = request.getParameter(FIRST_NAME);
-        String lname = request.getParameter(LAST_NAME);
-        String email = request.getParameter(EMAIL);
-        String pswd = request.getParameter(PASS);
-        String confpswd = request.getParameter(CONF_PASS);
-        String gname = request.getParameter(GROUP_NAME);
-        String gpswd = request.getParameter(GROUP_PASS);
-        String status = request.getParameter(STATUS);
-        String dpt = request.getParameter(DEPARTMENT);
-        user.createUSER(request, response);
         
-        try {
-            validationFName(fname);
-        }catch(Exception e){
-            errors.put(FIRST_NAME, e.getMessage());
-        }
-        try{
-            validationLName(lname);
-        }catch(Exception e){
-            errors.put(LAST_NAME, e.getMessage());
-        }
-        try{
-            validationEmail(email);
-        }catch(Exception e){
-            errors.put(EMAIL, e.getMessage());
-        }
-        try{
-            validationPassword(pswd, confpswd);
-        }catch(Exception e){
-            errors.put(PASS, e.getMessage());
-        }
-
-        /* Initialisation du résultat global de la validation. */
-        if ( errors.isEmpty() ) {
-            result = "Registration successful";
-        } else {
-            result = "Registration failed.";
-        }
-
-        /* Stockage du résultat et des messages d'erreur dans l'objet request */
-        request.setAttribute( ATT_ERRORS, errors );
-        request.setAttribute( ATT_RESULT, result );
-
+        Boolean succes = user.createUSER(request, response);
         /* Transmission de la paire d'objets request/response à notre JSP */
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
-    }
-
-    private void validationFName(String fname) throws Exception {
-        if ( fname != null && fname.trim().length() < 3 ) {
-        throw new Exception( "The first name must have at least 3 caracteres." );
-    }
-    }
-
-    private void validationLName(String lname) throws Exception {
-        if ( lname != null && lname.trim().length() < 3 ) {
-        throw new Exception( "The last name must have at least 3 caracteres." );
-    }
-    }
-/**
- * Valide l'adresse mail saisie.
- */
-    
-    private void validationEmail(String email) throws Exception {
-        if ( email != null && email.trim().length() != 0 ) {
-        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-            throw new Exception( "Please enter a valid email address" );
+        if(succes)
+        {
+            this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
         }
-    } else {
-        throw new Exception( "Please enter a valid email address" );
-    }
+        
+        
     }
 
-    private void validationPassword(String pswd, String confpswd) throws Exception {
-        if (pswd != null && pswd.trim().length() != 0 && confpswd != null && confpswd.trim().length() != 0) {
-        if (!pswd.equals(confpswd)) {
-            throw new Exception("Given passwords are different, please check they are they are the same");
-        } else if (pswd.trim().length() < 3) {
-            throw new Exception("The passwords must have at least 3 caracteres.");
-        }
-    } else {
-        throw new Exception("Please enter and validate your password");
-    }
-    }
 
 
 /**

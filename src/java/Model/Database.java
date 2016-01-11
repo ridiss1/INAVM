@@ -751,18 +751,15 @@ public class Database {
         return ip;
     }
     
-    public synchronized String addUser(String firstName, String lastName, String email, String password, String groupName, String groupPswd, String department) {
+    public synchronized String addUser(String firstName, String lastName, String email, String password, String groupName, String groupPswd, String status) {
         String r = "Insertion";
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
+            System.out.println("********** Register************** : Insert User");
             
-            stmt.execute("insert into " + Nomtable + " (FirstName,LastName,Email,Password,GroupName,GroupPassword,Department) values (" + "'" + firstName + "','" + lastName + "','" + email + "'," + password + ",'" + groupName + "'," + groupPswd + ",'" + department + "')");
-            ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".FName='" + firstName + "') AND (" + Nomtable + ".Password='" + password + "')");
-//            //id = rese.findColumn("ID");
-//            rese.next(); //pour aller à la ligne du résultat
-//            setId(rese.getInt(rese.findColumn("ID")));
-//            System.out.println("ID=============== " + id);
+            stmt.execute("insert into " + Nomtable + " (FIRSTNAME,LASTNAME,EMAIL,PASSWORD,GROUPNAME,GROUPPSWD,SATUS) values ('" + firstName + "','" + lastName + "','" + email + "','" + password + "','" + groupName + "','" + groupPswd + "','" + status + "')");
+                r = "Data";
             stmt.close();
         }catch (SQLException sqlExcept) {
             r = "USERDB : " + sqlExcept.toString();

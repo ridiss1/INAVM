@@ -54,12 +54,12 @@
                         <fieldset>
                             <div class="form-group">
                                 <label>First Name *</label>
-                                <input class="form-control" name="first_name" type="text" autofocus>
+                                <input class="form-control" name="fname" type="text" autofocus>
                                 <span class="erreur">${errors['fname']}</span>
                             </div>
                             <div class="form-group">
                                 <label>Last Name *</label>
-                                <input class="form-control" name="last_name" type="text" >
+                                <input class="form-control" name="lname" type="text" >
                                 <span class="erreur">${errors['lname']}</span>
                             </div>
                             <div class="form-group">
@@ -69,27 +69,27 @@
                             </div>
                             <div class="form-group">
                                 <label>Password *</label>
-                                <input class="form-control" name="password" type="password" >
+                                <input class="form-control" name="pswd" type="password" >
                                 <span class="erreur">${errors['pswd']}</span>
                             </div>
                             <div class="form-group">
                                 <label>Retype Password *</label>
-                                <input class="form-control" name="re_password" type="password" >
+                                <input class="form-control" name="confpswd" type="password" >
                                 <span class="erreur">${errors['confpswd']}</span>
                             </div>
                             <div class="form-group">
                                 <label>Group Name *</label>
-                                <input class="form-control" name="gpe_name" type="text" >
+                                <input class="form-control" name="gname" type="text" >
                             </div>
                             <div class="form-group">
                                 <label>Group Password *</label>
-                                <input class="form-control" name="gpe_password" type="password" >
+                                <input class="form-control" name="gpswd" type="password" >
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="user_status" id="st_professor" class="status_check" value="professor" checked="">Professor
+                                        <input type="radio" name="status" id="st_professor" class="status_check" value="professor" checked="">Professor
                                     </label>
                                 </div>
                             </div>
@@ -107,8 +107,7 @@
                                 </select>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <a href="index.jsp" class="btn btn-lg btn-success btn-block">Save</a>
-<!--                            <button id="submit" type="submit">Save</button>-->
+                            <button id="submit" type="submit">Save</button>
                             <p class="${empty errors ? 'succes' : 'error'}">${result}</p>
                         </fieldset>
                     </form>
